@@ -1,14 +1,14 @@
-package com.example.android.modules.ui.v7;
+package com.spryrocks.android.modules.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 
-import com.example.android.modules.ui.lifecycle.ActivityLifecycleListenersCollection;
-import com.example.android.modules.ui.lifecycle.ILifecycleListener;
-import com.example.android.modules.ui.lifecycle.ILifecycleListenersCollection;
+import com.spryrocks.android.modules.ui.lifecycle.ActivityLifecycleListenersCollection;
+import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListener;
+import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListenersCollection;
 
-public class BaseActivity extends AppCompatActivity implements ILifecycleListenersCollection {
+public class BaseActivity extends FragmentActivity implements ILifecycleListenersCollection {
     private final ActivityLifecycleListenersCollection lifecycleListenersCollection;
 
     public BaseActivity() {

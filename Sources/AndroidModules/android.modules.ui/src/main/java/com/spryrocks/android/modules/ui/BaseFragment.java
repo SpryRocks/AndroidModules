@@ -1,4 +1,4 @@
-package com.example.android.modules.ui;
+package com.spryrocks.android.modules.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import com.example.android.modules.ui.lifecycle.FragmentLifecycleListenersCollection;
-import com.example.android.modules.ui.lifecycle.ILifecycleListener;
-import com.example.android.modules.ui.lifecycle.ILifecycleListenersCollection;
+import com.spryrocks.android.modules.ui.lifecycle.FragmentLifecycleListenersCollection;
+import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListener;
+import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListenersCollection;
 
 public class BaseFragment extends Fragment implements ILifecycleListenersCollection {
     private final FragmentLifecycleListenersCollection lifecycleListenersCollection;

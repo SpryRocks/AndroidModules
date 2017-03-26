@@ -1,7 +1,7 @@
 package com.spryrocks.android.modules.ui.mvp;
 
-import com.example.android.modules.ui.lifecycle.ILifecycleListener;
-import com.example.android.modules.ui.lifecycle.ILifecycleListenersCollection;
+import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListener;
+import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListenersCollection;
 
 public class LogicCollection {
     private final ILifecycleListenersCollection lifecycleListenersCollection;

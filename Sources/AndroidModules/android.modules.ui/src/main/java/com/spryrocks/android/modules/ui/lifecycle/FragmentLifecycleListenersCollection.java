@@ -1,4 +1,4 @@
-package com.example.android.modules.ui.lifecycle;
+package com.spryrocks.android.modules.ui.lifecycle;
 
 import android.content.Context;
 import android.os.Bundle;

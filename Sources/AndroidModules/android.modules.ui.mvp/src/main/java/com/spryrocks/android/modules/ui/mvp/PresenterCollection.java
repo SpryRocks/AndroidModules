@@ -1,6 +1,6 @@
 package com.spryrocks.android.modules.ui.mvp;
 
-import com.example.android.modules.ui.lifecycle.ILifecycleListenersCollection;
+import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListenersCollection;
 
 public class PresenterCollection {
     private final LogicCollection logicCollection;

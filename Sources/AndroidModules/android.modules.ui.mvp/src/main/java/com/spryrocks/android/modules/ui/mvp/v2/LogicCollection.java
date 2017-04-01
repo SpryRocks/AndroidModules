@@ -1,4 +1,4 @@
-package com.spryrocks.android.modules.ui.mvp;
+package com.spryrocks.android.modules.ui.mvp.v2;
 
 import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListener;
 import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListenersCollection;

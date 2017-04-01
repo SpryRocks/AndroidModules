@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 import com.spryrocks.android.modules.ui.lifecycle.FragmentLifecycleListenersCollection;
 import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListener;
@@ -16,7 +17,6 @@ public class BaseFragment extends Fragment implements ILifecycleListenersCollect
     public BaseFragment() {
         lifecycleListenersCollection = new FragmentLifecycleListenersCollection();
     }
-
 
     /* lifecycle */
 
@@ -96,6 +96,20 @@ public class BaseFragment extends Fragment implements ILifecycleListenersCollect
         super.onDetach();
 
         lifecycleListenersCollection.onDetach();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        lifecycleListenersCollection.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        lifecycleListenersCollection.onDestroyView();
     }
 
 

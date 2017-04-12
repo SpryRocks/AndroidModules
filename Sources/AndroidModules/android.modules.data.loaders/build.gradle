@@ -20,5 +20,5 @@ android {
 
 dependencies {
     compile project(':android.modules.data')
-    compile 'com.android.support:support-core-utils:25.3.0'
+    compile 'com.android.support:support-core-utils:25.3.1'
 }

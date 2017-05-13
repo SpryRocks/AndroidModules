@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 25
@@ -21,4 +22,11 @@ android {
 dependencies {
     compile project(':android.modules.ui')
     compile project(':android.modules.data')
+}
+
+publish {
+    userOrg = 'spryrocks'
+    groupId = 'com.spryrocks.android'
+    artifactId = 'android-modules-ui-mvp'
+    publishVersion = '0.0.1'
 }

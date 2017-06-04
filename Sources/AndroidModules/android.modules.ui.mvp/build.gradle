@@ -28,5 +28,5 @@ publish {
     userOrg = 'spryrocks'
     groupId = 'com.spryrocks.android'
     artifactId = 'android-modules-ui-mvp'
-    publishVersion = '0.0.1'
+    publishVersion = '0.0.2'
 }

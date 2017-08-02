@@ -27,6 +27,7 @@ import com.spryrocks.android.modules.ui.lifecycle.FragmentLifecycleListenersColl
 import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListener;
 import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListenersCollection;
 
+@SuppressWarnings("unused")
 public class BaseFragment extends Fragment implements ILifecycleListenersCollection {
     private final FragmentLifecycleListenersCollection lifecycleListenersCollection;
 
@@ -132,7 +133,7 @@ public class BaseFragment extends Fragment implements ILifecycleListenersCollect
     /* public methods */
 
     @Override
-    public void registerListener(ILifecycleListener listener) {
-        lifecycleListenersCollection.registerListener(listener);
+    public <T extends ILifecycleListener> T registerLifecycleListener(T lifecycleListener) {
+        return lifecycleListenersCollection.registerLifecycleListener(lifecycleListener);
     }
 }

@@ -97,7 +97,7 @@ public abstract class PresenterBase<TPresenterView> implements IPresenter<TPrese
     /* public methods */
 
     @Override
-    public void registerListener(ILifecycleListener listener) {
-        lifecycleListenersCollection.registerListener(listener);
+    public <T extends ILifecycleListener> T registerLifecycleListener(T lifecycleListener) {
+        return lifecycleListenersCollection.registerLifecycleListener(lifecycleListener);
     }
 }

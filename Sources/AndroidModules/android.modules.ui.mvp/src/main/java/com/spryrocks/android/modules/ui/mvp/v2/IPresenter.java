@@ -16,6 +16,6 @@
 
 package com.spryrocks.android.modules.ui.mvp.v2;
 
-public interface IPresenter<TPresenterView> extends ILogic {
+public interface IPresenter<TPresenterView> {
     void setView(TPresenterView view);
 }

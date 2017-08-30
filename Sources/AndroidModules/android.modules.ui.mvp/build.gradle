@@ -23,8 +23,8 @@ dependencies {
     implementation project(':android.modules')
     implementation project(':android.modules.ui')
     implementation project(':android.modules.data')
-    implementation 'com.android.support:support-annotations:26.0.0'
-    implementation 'com.android.support:support-fragment:26.0.0'
+    implementation 'com.android.support:support-annotations:26.0.1'
+    implementation 'com.android.support:support-fragment:26.0.1'
 }
 
 publish {

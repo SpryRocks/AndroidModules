@@ -21,7 +21,7 @@ android {
 
 dependencies {
     implementation project(':android.modules.data')
-    implementation 'com.android.support:support-core-utils:26.0.1'
+    implementation 'com.android.support:support-core-utils:26.1.0'
 }
 
 publish {

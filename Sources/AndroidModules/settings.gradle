@@ -1,1 +1,8 @@
-include ':android.modules', ':android.modules.threading', ':android.modules.ui', ':android.modules.data', ':android.modules.data.loaders', ':android.modules.data.adapters', ':android.modules.ui.mvp'
+include ':android.modules',
+        ':android.modules.threading',
+        ':android.modules.ui',
+        ':android.modules.data',
+        ':android.modules.data.loaders',
+        ':android.modules.data.adapters',
+        ':android.modules.ui.mvp',
+        ':android.modules.ui.mvvm'

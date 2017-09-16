@@ -29,7 +29,8 @@ import com.spryrocks.android.modules.utils.Monads;
 import static com.spryrocks.android.modules.utils.Monads.maybeNull;
 
 public class BaseViewModel<TModel> extends AndroidViewModel implements IConnectedServicesOwner {
-    private final TModel model;
+    @SuppressWarnings("WeakerAccess")
+    protected final TModel model;
     private final IConnectedServices connectedServices;
 
     public BaseViewModel(Application application, TModel model) {
@@ -57,6 +58,7 @@ public class BaseViewModel<TModel> extends AndroidViewModel implements IConnecte
         return connectedServices.getService(serviceClass);
     }
 
+    @SuppressWarnings("unused")
     protected <TService extends IConnectedService> void useService(Class<TService> serviceClass, Monads.Action1<TService> action) {
         maybeNull(getService(serviceClass), action);
     }

@@ -25,18 +25,27 @@ android {
         targetSdkVersion 26
         versionCode project.versionCode
         versionName project.versionName
-
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
-    implementation project(':android.modules')
-    implementation "com.android.support:support-fragment:$project.ANDROID_SUPPORT_VERSION"
+    implementation project(":android.modules")
+    implementation project(":android.modules.ui")
+
     implementation "com.android.support:appcompat-v7:$project.ANDROID_SUPPORT_VERSION"
+
+    implementation "android.arch.lifecycle:runtime:$project.ANDROID_ARCH_VERSION"
+    implementation "android.arch.lifecycle:extensions:$project.ANDROID_ARCH_VERSION"
+    //annotationProcessor "android.arch.lifecycle:compiler:$project.ANDROID_ARCH_VERSION"
 }

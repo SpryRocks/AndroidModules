@@ -14,29 +14,10 @@
  *     limitations under the License.
  */
 
-buildscript {
-    repositories {
-        jcenter()
-        google()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-beta5'
-    }
-}
+package com.spryrocks.android.modules.ui.mvvm.connectedServices;
 
-allprojects {
-    repositories {
-        jcenter()
-        google()
-    }
-}
+import android.support.annotation.Nullable;
 
-project.ext {
-    compileSdkVersion = 26
-    buildToolsVersion = "26.0.1"
-    versionCode = 1
-    versionName = "1.0"
-
-    ANDROID_SUPPORT_VERSION = "26.1.0"
-    ANDROID_ARCH_VERSION = '1.0.0-alpha9-1'
+public interface IConnectedServiceReceiver {
+    @Nullable <TService extends IConnectedService> TService getService(Class<TService> serviceClass);
 }

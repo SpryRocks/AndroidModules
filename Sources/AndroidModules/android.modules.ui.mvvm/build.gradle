@@ -47,5 +47,4 @@ dependencies {
 
     implementation "android.arch.lifecycle:runtime:$project.ANDROID_ARCH_VERSION"
     implementation "android.arch.lifecycle:extensions:$project.ANDROID_ARCH_VERSION"
-    //annotationProcessor "android.arch.lifecycle:compiler:$project.ANDROID_ARCH_VERSION"
 }

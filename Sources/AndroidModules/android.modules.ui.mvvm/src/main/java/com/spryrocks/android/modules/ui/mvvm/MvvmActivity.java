@@ -16,27 +16,20 @@
 
 package com.spryrocks.android.modules.ui.mvvm;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 
 import com.spryrocks.android.modules.ui.BaseActivity;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
+import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServicesCallbacksReceiver;
 
 public class MvvmActivity<TBinding extends ViewDataBinding, TViewModel extends BaseViewModel>
         extends BaseActivity implements IMvvmView<TBinding, TViewModel> {
-    @LayoutRes
-    private final int layoutId;
-    private final Class<TViewModel> viewModelClass;
-    private final int modelBindingVariableId;
-    private TBinding binding;
-    private TViewModel viewModel;
+    private final MvvmViewImplHelper.FragmentActivity<TBinding, TViewModel> mvvmViewImplHelper;
 
     protected MvvmActivity(@LayoutRes int layoutId, Class<TViewModel> viewModelClass, int modelBindingVariableId) {
-        this.layoutId = layoutId;
-        this.viewModelClass = viewModelClass;
-        this.modelBindingVariableId = modelBindingVariableId;
+        mvvmViewImplHelper = new MvvmViewImplHelper.FragmentActivity<>(layoutId, viewModelClass, modelBindingVariableId, this);
     }
 
     @Override
@@ -45,30 +38,19 @@ public class MvvmActivity<TBinding extends ViewDataBinding, TViewModel extends B
 
         super.onCreate(savedInstanceState);
 
-        viewModel = ViewModelProviders.of(this).get(viewModelClass);
-        initViewModel(viewModel);
-
-        connectedServicesRegistration.setConnectedServicesOwner(viewModel);
-
-        initConnectedServices(connectedServicesRegistration);
-
-        binding = MvvmViewUtil.inflateAndInitBinding(this, this, layoutId, viewModel, modelBindingVariableId);
+        mvvmViewImplHelper.onCreate(this, connectedServicesRegistration);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
 
-        cleanViewModel(viewModel);
+        mvvmViewImplHelper.onDestroy();
     }
 
     @SuppressWarnings("unused")
     @Override
     public void initViewModel(TViewModel viewModel) {
-    }
-
-    @SuppressWarnings("unused")
-    public void cleanViewModel(TViewModel viewModel) {
     }
 
     @Override
@@ -81,11 +63,20 @@ public class MvvmActivity<TBinding extends ViewDataBinding, TViewModel extends B
 
     @Override
     public TBinding getBinding() {
-        return binding;
+        return mvvmViewImplHelper.getBinding();
     }
 
     @Override
     public TViewModel getViewModel() {
-        return viewModel;
+        return mvvmViewImplHelper.getViewModel();
+    }
+
+    @SuppressWarnings("unused")
+    public void cleanViewModel(TViewModel viewModel) {
+    }
+
+    @Override
+    public IConnectedServicesCallbacksReceiver getConnectedServicesCallbacksReceiver() {
+        return mvvmViewImplHelper.getConnectedServicesCallbacksReceiver();
     }
 }

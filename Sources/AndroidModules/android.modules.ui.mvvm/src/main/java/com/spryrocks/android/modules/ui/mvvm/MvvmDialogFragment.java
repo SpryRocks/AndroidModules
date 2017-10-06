@@ -44,7 +44,7 @@ public class MvvmDialogFragment<TBinding extends ViewDataBinding, TViewModel ext
 
         super.onCreate(savedInstanceState);
 
-        mvvmViewImplHelper.onCreate(this, connectedServicesRegistration);
+        mvvmViewImplHelper.onCreate(savedInstanceState, this, connectedServicesRegistration);
     }
 
     @Override

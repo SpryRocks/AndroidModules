@@ -38,7 +38,7 @@ public class MvvmActivity<TBinding extends ViewDataBinding, TViewModel extends B
 
         super.onCreate(savedInstanceState);
 
-        mvvmViewImplHelper.onCreate(this, connectedServicesRegistration);
+        mvvmViewImplHelper.onCreate(savedInstanceState, this, connectedServicesRegistration);
     }
 
     @Override

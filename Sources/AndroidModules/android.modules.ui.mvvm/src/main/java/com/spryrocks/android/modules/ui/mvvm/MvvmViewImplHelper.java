@@ -20,6 +20,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +36,8 @@ class MvvmViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends Ba
     private final Class<TViewModel> viewModelClass;
     private final int modelBindingVariableId;
     private TBinding binding;
-    private TViewModel viewModel;
     private IConnectedServicesCallbacksReceiver connectedServicesCallbacksReceiver;
+    TViewModel viewModel;
 
     MvvmViewImplHelper(@LayoutRes int layoutId, Class<TViewModel> viewModelClass, int modelBindingVariableId, IMvvmView<TBinding, TViewModel> ownerView) {
         this.layoutId = layoutId;
@@ -117,13 +118,17 @@ class MvvmViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends Ba
             super(layoutId, tViewModelClass, modelBindingVariableId, ownerView);
         }
 
-        void onCreate(android.support.v4.app.FragmentActivity fragmentActivity, ConnectedServicesRegistration connectedServicesRegistration) {
+        void onCreate(Bundle savedInstanceState, android.support.v4.app.FragmentActivity fragmentActivity, ConnectedServicesRegistration connectedServicesRegistration) {
             ViewModelProvider viewModelProvider = ViewModelProviders.of(fragmentActivity);
 
             super.onCreate(viewModelProvider, connectedServicesRegistration);
 
             TBinding binding = DataBindingUtil.setContentView(fragmentActivity, getLayoutId());
             inflateAndInitBinding(binding);
+
+            if (savedInstanceState == null) {
+                viewModel.onInitialized();
+            }
         }
     }
     static class Fragment<TBinding extends ViewDataBinding, TViewModel extends BaseViewModel>
@@ -132,10 +137,14 @@ class MvvmViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends Ba
             super(layoutId, tViewModelClass, modelBindingVariableId, ownerView);
         }
 
-        void onCreate(android.support.v4.app.Fragment fragment, ConnectedServicesRegistration connectedServicesRegistration) {
+        void onCreate(Bundle savedInstanceState, android.support.v4.app.Fragment fragment, ConnectedServicesRegistration connectedServicesRegistration) {
             ViewModelProvider viewModelProvider = ViewModelProviders.of(fragment);
 
             super.onCreate(viewModelProvider, connectedServicesRegistration);
+
+            if (savedInstanceState == null) {
+                viewModel.onInitialized();
+            }
         }
 
         View onCreateView(LayoutInflater inflater, ViewGroup container) {

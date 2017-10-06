@@ -64,6 +64,10 @@ public class BaseViewModel<TModel> extends AndroidViewModel implements IConnecte
     }
 
     @SuppressWarnings({"unused", "WeakerAccess"})
+    protected void onInitialized() {
+    }
+
+    @SuppressWarnings({"unused", "WeakerAccess"})
     protected void onViewAttached() {
     }
 

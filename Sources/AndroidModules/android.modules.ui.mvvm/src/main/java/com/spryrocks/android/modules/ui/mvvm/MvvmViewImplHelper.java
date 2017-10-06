@@ -89,9 +89,13 @@ class MvvmViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends Ba
         connectedServicesRegistration.setConnectedServicesOwner(viewModel);
 
         initConnectedServices(connectedServicesRegistration);
+
+        viewModel.onViewAttached();
     }
 
     void onDestroy() {
+        viewModel.onViewDetached();
+
         cleanViewModel(getViewModel());
     }
 

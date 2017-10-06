@@ -63,6 +63,14 @@ public class BaseViewModel<TModel> extends AndroidViewModel implements IConnecte
         maybeNull(getService(serviceClass), action);
     }
 
+    @SuppressWarnings({"unused", "WeakerAccess"})
+    protected void onViewAttached() {
+    }
+
+    @SuppressWarnings({"unused", "WeakerAccess"})
+    protected void onViewDetached() {
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();

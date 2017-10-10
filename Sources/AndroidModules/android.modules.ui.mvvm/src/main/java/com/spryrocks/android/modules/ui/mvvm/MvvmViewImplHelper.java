@@ -131,6 +131,7 @@ class MvvmViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends Ba
             }
         }
     }
+
     static class Fragment<TBinding extends ViewDataBinding, TViewModel extends BaseViewModel>
             extends MvvmViewImplHelper<TBinding, TViewModel> {
         Fragment(int layoutId, Class<TViewModel> tViewModelClass, int modelBindingVariableId, IMvvmView<TBinding, TViewModel> ownerView) {

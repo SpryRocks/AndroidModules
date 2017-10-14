@@ -20,23 +20,21 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServices;
-import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServiceReceiver;
+import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServiceCallbacksManager;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServices;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServicesOwner;
 
-public class ViewModel<TModel> extends AndroidViewModel implements IConnectedServicesOwner, IConnectedServiceReceiver {
+public class ViewModel<TModel> extends AndroidViewModel implements IConnectedServicesOwner {
     @SuppressWarnings("WeakerAccess")
     protected final TModel model;
-    private final IConnectedServices connectedServices;
+    private final ConnectedServices connectedServices;
 
     public ViewModel(Application application, TModel model) {
         super(application);
 
         this.model = model;
 
-        ConnectedServices connectedServices = new ConnectedServices();
-        initConnectedServices(connectedServices);
-        this.connectedServices = connectedServices;
+        this.connectedServices = new ConnectedServices();
     }
 
     @Override
@@ -44,8 +42,9 @@ public class ViewModel<TModel> extends AndroidViewModel implements IConnectedSer
         return connectedServices;
     }
 
-    @SuppressWarnings("WeakerAccess")
-    protected void initConnectedServices(@SuppressWarnings("unused") ConnectedServices connectedServices) {
+    @Override
+    public IConnectedServiceCallbacksManager getConnectedServiceCallbacksManager() {
+        return connectedServices;
     }
 
     @SuppressWarnings({"unused", "WeakerAccess"})

@@ -16,7 +16,7 @@
 
 package com.spryrocks.android.modules.ui.mvvm.connectedServices;
 
-public class DebugMode {
+public class MvvmConnectedServicesDebugMode {
     static boolean isEnabled;
 
     @SuppressWarnings("unused")

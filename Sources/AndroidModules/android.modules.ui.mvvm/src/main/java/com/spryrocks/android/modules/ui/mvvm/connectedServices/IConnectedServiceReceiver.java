@@ -30,7 +30,7 @@ public interface IConnectedServiceReceiver {
     @SuppressWarnings("unused")
     default <TService extends IConnectedService> void useService(@NonNull Class<TService> serviceClass, @NonNull Monads.Action1<TService> action) {
         TService service = this.getService(serviceClass);
-        if (DebugMode.isEnabled && service == null) {
+        if (MvvmConnectedServicesDebugMode.isEnabled && service == null) {
             throw new RuntimeException(serviceClass.getName() + " not found. Make sure you call connectService(...) method in the view class (fragment or activity)");
         }
 

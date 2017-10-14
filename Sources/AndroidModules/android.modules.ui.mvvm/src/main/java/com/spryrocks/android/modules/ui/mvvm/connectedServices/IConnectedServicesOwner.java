@@ -27,4 +27,5 @@ public interface IConnectedServicesOwner extends IConnectedServiceReceiver {
     }
 
     IConnectedServices getConnectedServices();
+    IConnectedServiceCallbacksManager getConnectedServiceCallbacksManager();
 }

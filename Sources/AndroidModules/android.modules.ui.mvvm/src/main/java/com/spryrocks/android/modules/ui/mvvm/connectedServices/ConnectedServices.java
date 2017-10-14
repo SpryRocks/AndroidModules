@@ -16,6 +16,7 @@
 
 package com.spryrocks.android.modules.ui.mvvm.connectedServices;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.util.HashMap;
@@ -49,7 +50,7 @@ public class ConnectedServices implements IConnectedServices, IConnectedServices
 
     @Nullable
     @Override
-    public <TService extends IConnectedService> TService getService(Class<TService> serviceClass) {
+    public <TService extends IConnectedService> TService getService(@NonNull Class<TService> serviceClass) {
         //noinspection unchecked
         return (TService) serviceMap.get(serviceClass);
     }

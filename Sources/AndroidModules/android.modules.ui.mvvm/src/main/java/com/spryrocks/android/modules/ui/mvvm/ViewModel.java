@@ -18,22 +18,18 @@ package com.spryrocks.android.modules.ui.mvvm;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
-import android.support.annotation.Nullable;
 
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServices;
-import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedService;
+import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServiceReceiver;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServices;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServicesOwner;
-import com.spryrocks.android.modules.utils.Monads;
 
-import static com.spryrocks.android.modules.utils.Monads.maybeNull;
-
-public class BaseViewModel<TModel> extends AndroidViewModel implements IConnectedServicesOwner {
+public class ViewModel<TModel> extends AndroidViewModel implements IConnectedServicesOwner, IConnectedServiceReceiver {
     @SuppressWarnings("WeakerAccess")
     protected final TModel model;
     private final IConnectedServices connectedServices;
 
-    public BaseViewModel(Application application, TModel model) {
+    public ViewModel(Application application, TModel model) {
         super(application);
 
         this.model = model;
@@ -50,17 +46,6 @@ public class BaseViewModel<TModel> extends AndroidViewModel implements IConnecte
 
     @SuppressWarnings("WeakerAccess")
     protected void initConnectedServices(@SuppressWarnings("unused") ConnectedServices connectedServices) {
-    }
-
-    @SuppressWarnings("WeakerAccess")
-    @Nullable
-    protected <TService extends IConnectedService> TService getService(Class<TService> serviceClass) {
-        return connectedServices.getService(serviceClass);
-    }
-
-    @SuppressWarnings("unused")
-    protected <TService extends IConnectedService> void useService(Class<TService> serviceClass, Monads.Action1<TService> action) {
-        maybeNull(getService(serviceClass), action);
     }
 
     @SuppressWarnings({"unused", "WeakerAccess"})

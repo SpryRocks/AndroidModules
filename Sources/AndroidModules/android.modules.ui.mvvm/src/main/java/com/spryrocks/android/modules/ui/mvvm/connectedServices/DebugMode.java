@@ -16,15 +16,11 @@
 
 package com.spryrocks.android.modules.ui.mvvm.connectedServices;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+public class DebugMode {
+    static boolean isEnabled;
 
-public interface IConnectedServicesOwner extends IConnectedServiceReceiver {
-    @Nullable
-    @Override
-    default <TService extends IConnectedService> TService getService(@NonNull Class<TService> tServiceClass) {
-        return getConnectedServices().getService(tServiceClass);
+    @SuppressWarnings("unused")
+    public static void enable() {
+        isEnabled = true;
     }
-
-    IConnectedServices getConnectedServices();
 }

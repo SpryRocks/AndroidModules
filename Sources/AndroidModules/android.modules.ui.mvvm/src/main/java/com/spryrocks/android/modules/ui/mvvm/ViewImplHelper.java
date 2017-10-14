@@ -29,7 +29,7 @@ import android.view.ViewGroup;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServicesCallbacksReceiver;
 
-class MvvmViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends BaseViewModel>
+class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
         implements IMvvmView<TBinding, TViewModel> {
     private final IMvvmView<TBinding, TViewModel> ownerView;
     private @LayoutRes final int layoutId;
@@ -39,7 +39,7 @@ class MvvmViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends Ba
     private IConnectedServicesCallbacksReceiver connectedServicesCallbacksReceiver;
     TViewModel viewModel;
 
-    MvvmViewImplHelper(@LayoutRes int layoutId, Class<TViewModel> viewModelClass, int modelBindingVariableId, IMvvmView<TBinding, TViewModel> ownerView) {
+    ViewImplHelper(@LayoutRes int layoutId, Class<TViewModel> viewModelClass, int modelBindingVariableId, IMvvmView<TBinding, TViewModel> ownerView) {
         this.layoutId = layoutId;
         this.viewModelClass = viewModelClass;
         this.modelBindingVariableId = modelBindingVariableId;
@@ -112,8 +112,8 @@ class MvvmViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends Ba
         return layoutId;
     }
 
-    static class FragmentActivity<TBinding extends ViewDataBinding, TViewModel extends BaseViewModel>
-            extends MvvmViewImplHelper<TBinding, TViewModel> {
+    static class FragmentActivity<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
+            extends ViewImplHelper<TBinding, TViewModel> {
         FragmentActivity(int layoutId, Class<TViewModel> tViewModelClass, int modelBindingVariableId, IMvvmView<TBinding, TViewModel> ownerView) {
             super(layoutId, tViewModelClass, modelBindingVariableId, ownerView);
         }
@@ -132,8 +132,8 @@ class MvvmViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends Ba
         }
     }
 
-    static class Fragment<TBinding extends ViewDataBinding, TViewModel extends BaseViewModel>
-            extends MvvmViewImplHelper<TBinding, TViewModel> {
+    static class Fragment<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
+            extends ViewImplHelper<TBinding, TViewModel> {
         Fragment(int layoutId, Class<TViewModel> tViewModelClass, int modelBindingVariableId, IMvvmView<TBinding, TViewModel> ownerView) {
             super(layoutId, tViewModelClass, modelBindingVariableId, ownerView);
         }

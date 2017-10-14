@@ -21,7 +21,7 @@ import android.databinding.ViewDataBinding;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServicesCallbacksReceiver;
 
-public interface IMvvmView<TBinding extends ViewDataBinding, TViewModel extends BaseViewModel> {
+public interface IMvvmView<TBinding extends ViewDataBinding, TViewModel extends ViewModel> {
     void initViewModel(TViewModel viewModel);
 
     void initConnectedServices(ConnectedServicesRegistration services);

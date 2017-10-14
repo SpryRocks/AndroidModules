@@ -30,17 +30,18 @@ import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedService
 
 @SuppressLint("ValidFragment")
 @SuppressWarnings("unused")
-public class MvvmFragment<TBinding extends ViewDataBinding, TViewModel extends BaseViewModel>
+public class MvvmFragment<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
         extends BaseFragment implements IMvvmView<TBinding, TViewModel> {
-    private MvvmViewImplHelper.Fragment<TBinding, TViewModel> mvvmViewImplHelper;
+    private ViewImplHelper.Fragment<TBinding, TViewModel> mvvmViewImplHelper;
 
     protected MvvmFragment(@LayoutRes int layoutId, Class<TViewModel> viewModelClass, int modelBindingVariableId) {
-        mvvmViewImplHelper = new MvvmViewImplHelper.Fragment<>(layoutId, viewModelClass, modelBindingVariableId, this);
+        mvvmViewImplHelper = new ViewImplHelper.Fragment<>(layoutId, viewModelClass, modelBindingVariableId, this);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        ConnectedServicesRegistration connectedServicesRegistration = new ConnectedServicesRegistration(this);
+        ConnectedServicesRegistration connectedServicesRegistration = new ConnectedServicesRegistration();
+        registerLifecycleListener(connectedServicesRegistration);
 
         super.onCreate(savedInstanceState);
 

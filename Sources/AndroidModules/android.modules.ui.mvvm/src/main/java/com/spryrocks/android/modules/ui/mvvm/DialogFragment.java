@@ -16,29 +16,41 @@
 
 package com.spryrocks.android.modules.ui.mvvm;
 
+import android.annotation.SuppressLint;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import com.spryrocks.android.modules.ui.BaseActivity;
+import com.spryrocks.android.modules.ui.BaseDialogFragment;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServicesCallbacksReceiver;
 
-public class MvvmActivity<TBinding extends ViewDataBinding, TViewModel extends BaseViewModel>
-        extends BaseActivity implements IMvvmView<TBinding, TViewModel> {
-    private final MvvmViewImplHelper.FragmentActivity<TBinding, TViewModel> mvvmViewImplHelper;
+@SuppressLint("ValidFragment")
+@SuppressWarnings("unused")
+public class DialogFragment<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
+        extends BaseDialogFragment implements IMvvmView<TBinding, TViewModel> {
+    private final ViewImplHelper.Fragment<TBinding, TViewModel> mvvmViewImplHelper;
 
-    protected MvvmActivity(@LayoutRes int layoutId, Class<TViewModel> viewModelClass, int modelBindingVariableId) {
-        mvvmViewImplHelper = new MvvmViewImplHelper.FragmentActivity<>(layoutId, viewModelClass, modelBindingVariableId, this);
+    protected DialogFragment(@LayoutRes int layoutId, Class<TViewModel> viewModelClass, int modelBindingVariableId) {
+        mvvmViewImplHelper = new ViewImplHelper.Fragment<>(layoutId, viewModelClass, modelBindingVariableId, this);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        ConnectedServicesRegistration connectedServicesRegistration = new ConnectedServicesRegistration(this);
+        ConnectedServicesRegistration connectedServicesRegistration = new ConnectedServicesRegistration();
+        registerLifecycleListener(connectedServicesRegistration);
 
         super.onCreate(savedInstanceState);
 
         mvvmViewImplHelper.onCreate(savedInstanceState, this, connectedServicesRegistration);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return mvvmViewImplHelper.onCreateView(inflater, container);
     }
 
     @Override
@@ -72,6 +84,7 @@ public class MvvmActivity<TBinding extends ViewDataBinding, TViewModel extends B
     }
 
     @SuppressWarnings("unused")
+    @Override
     public void cleanViewModel(TViewModel viewModel) {
     }
 

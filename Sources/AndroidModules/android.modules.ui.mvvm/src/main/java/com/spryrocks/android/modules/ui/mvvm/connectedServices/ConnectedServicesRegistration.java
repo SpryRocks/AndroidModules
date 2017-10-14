@@ -16,24 +16,15 @@
 
 package com.spryrocks.android.modules.ui.mvvm.connectedServices;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListener;
-import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListenersCollection;
 import com.spryrocks.android.modules.ui.lifecycle.LifecycleListener;
 
 public class ConnectedServicesRegistration extends LifecycleListener implements IConnectedServicesRegistration {
-    private final ILifecycleListenersCollection lifecycleListenersCollection;
-
     private IConnectedServicesManager connectedServicesManager;
     private IConnectedServiceReceiver connectedServiceReceiver;
     private IConnectedServicesCallbacksReceiver connectedServicesCallbacksReceiver;
-
-    public ConnectedServicesRegistration(ILifecycleListenersCollection lifecycleListenersCollection) {
-        this.lifecycleListenersCollection = lifecycleListenersCollection;
-
-        lifecycleListenersCollection.registerLifecycleListener(this);
-    }
 
     public void setConnectedServicesOwner(IConnectedServicesOwner connectedServicesOwner) {
         IConnectedServices connectedServices = connectedServicesOwner.getConnectedServices();
@@ -45,9 +36,6 @@ public class ConnectedServicesRegistration extends LifecycleListener implements 
     @Override
     public <TService extends IConnectedService, TServiceImpl extends TService> TServiceImpl connectService(Class<TService> serviceClass, TServiceImpl service) {
         connectedServicesManager.connectService(serviceClass, service);
-
-        if (service instanceof ILifecycleListener)
-            lifecycleListenersCollection.registerLifecycleListener((ILifecycleListener) service);
 
         return service;
     }
@@ -69,7 +57,7 @@ public class ConnectedServicesRegistration extends LifecycleListener implements 
 
     @Nullable
     @Override
-    public <TService extends IConnectedService> TService getService(Class<TService> serviceClass) {
+    public <TService extends IConnectedService> TService getService(@NonNull Class<TService> serviceClass) {
         return connectedServiceReceiver.getService(serviceClass);
     }
 

@@ -16,5 +16,5 @@
 
 package com.spryrocks.android.modules.ui.mvvm.connectedServices;
 
-public interface IConnectedServices extends IConnectedServiceReceiver, IConnectedServicesCallbacksReceiver {
+public interface IConnectedServices extends IConnectedServiceReceiver, IConnectedServiceCallbacksReceiver {
 }

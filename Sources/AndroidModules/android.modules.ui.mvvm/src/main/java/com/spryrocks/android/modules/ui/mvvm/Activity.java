@@ -21,8 +21,8 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 
 import com.spryrocks.android.modules.ui.BaseActivity;
-import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
-import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServicesCallbacksReceiver;
+import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistrationUtil;
+import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServiceCallbacksReceiver;
 
 public class Activity<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
         extends BaseActivity implements IMvvmView<TBinding, TViewModel> {
@@ -34,12 +34,12 @@ public class Activity<TBinding extends ViewDataBinding, TViewModel extends ViewM
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        ConnectedServicesRegistration connectedServicesRegistration = new ConnectedServicesRegistration();
-        registerLifecycleListener(connectedServicesRegistration);
+        ConnectedServicesRegistrationUtil connectedServicesRegistrationUtil = new ConnectedServicesRegistrationUtil();
+        registerLifecycleListener(connectedServicesRegistrationUtil);
 
         super.onCreate(savedInstanceState);
 
-        mvvmViewImplHelper.onCreate(savedInstanceState, this, connectedServicesRegistration);
+        mvvmViewImplHelper.onCreate(savedInstanceState, this, connectedServicesRegistrationUtil);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Activity<TBinding extends ViewDataBinding, TViewModel extends ViewM
     }
 
     @Override
-    public void initConnectedServices(ConnectedServicesRegistration services) {
+    public void initConnectedServices(ConnectedServicesRegistrationUtil services) {
     }
 
     @Override
@@ -77,7 +77,7 @@ public class Activity<TBinding extends ViewDataBinding, TViewModel extends ViewM
     }
 
     @Override
-    public IConnectedServicesCallbacksReceiver getConnectedServicesCallbacksReceiver() {
+    public IConnectedServiceCallbacksReceiver getConnectedServicesCallbacksReceiver() {
         return mvvmViewImplHelper.getConnectedServicesCallbacksReceiver();
     }
 }

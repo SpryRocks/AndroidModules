@@ -18,13 +18,13 @@ package com.spryrocks.android.modules.ui.mvvm;
 
 import android.databinding.ViewDataBinding;
 
-import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
-import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServicesCallbacksReceiver;
+import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistrationUtil;
+import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServiceCallbacksReceiver;
 
 public interface IMvvmView<TBinding extends ViewDataBinding, TViewModel extends ViewModel> {
     void initViewModel(TViewModel viewModel);
 
-    void initConnectedServices(ConnectedServicesRegistration services);
+    void initConnectedServices(ConnectedServicesRegistrationUtil services);
 
     void initBinding(TBinding binding);
 
@@ -36,5 +36,5 @@ public interface IMvvmView<TBinding extends ViewDataBinding, TViewModel extends 
 
     void cleanViewModel(TViewModel viewModel);
 
-    IConnectedServicesCallbacksReceiver getConnectedServicesCallbacksReceiver();
+    IConnectedServiceCallbacksReceiver getConnectedServicesCallbacksReceiver();
 }

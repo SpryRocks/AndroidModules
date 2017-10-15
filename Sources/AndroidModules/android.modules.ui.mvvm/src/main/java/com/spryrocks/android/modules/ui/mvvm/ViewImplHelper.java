@@ -26,8 +26,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
-import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServicesCallbacksReceiver;
+import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistrationUtil;
+import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServiceCallbacksReceiver;
 
 class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
         implements IMvvmView<TBinding, TViewModel> {
@@ -36,7 +36,7 @@ class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewMo
     private final Class<TViewModel> viewModelClass;
     private final int modelBindingVariableId;
     private TBinding binding;
-    private IConnectedServicesCallbacksReceiver connectedServicesCallbacksReceiver;
+    private IConnectedServiceCallbacksReceiver connectedServicesCallbacksReceiver;
     TViewModel viewModel;
 
     ViewImplHelper(@LayoutRes int layoutId, Class<TViewModel> viewModelClass, int modelBindingVariableId, IMvvmView<TBinding, TViewModel> ownerView) {
@@ -52,7 +52,7 @@ class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewMo
     }
 
     @Override
-    public void initConnectedServices(ConnectedServicesRegistration services) {
+    public void initConnectedServices(ConnectedServicesRegistrationUtil services) {
         ownerView.initConnectedServices(services);
     }
 
@@ -77,19 +77,19 @@ class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewMo
     }
 
     @Override
-    public IConnectedServicesCallbacksReceiver getConnectedServicesCallbacksReceiver() {
+    public IConnectedServiceCallbacksReceiver getConnectedServicesCallbacksReceiver() {
         return connectedServicesCallbacksReceiver;
     }
 
-    void onCreate(ViewModelProvider viewModelProvider, ConnectedServicesRegistration connectedServicesRegistration) {
-        connectedServicesCallbacksReceiver = connectedServicesRegistration;
+    void onCreate(ViewModelProvider viewModelProvider, ConnectedServicesRegistrationUtil connectedServicesRegistrationUtil) {
+        connectedServicesCallbacksReceiver = connectedServicesRegistrationUtil;
 
         this.viewModel = viewModelProvider.get(viewModelClass);
         initViewModel(viewModel);
 
-        connectedServicesRegistration.setConnectedServicesOwner(viewModel);
+        connectedServicesRegistrationUtil.setConnectedServicesOwner(viewModel);
 
-        initConnectedServices(connectedServicesRegistration);
+        initConnectedServices(connectedServicesRegistrationUtil);
 
         viewModel.onViewAttached();
     }
@@ -118,10 +118,10 @@ class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewMo
             super(layoutId, tViewModelClass, modelBindingVariableId, ownerView);
         }
 
-        void onCreate(Bundle savedInstanceState, android.support.v4.app.FragmentActivity fragmentActivity, ConnectedServicesRegistration connectedServicesRegistration) {
+        void onCreate(Bundle savedInstanceState, android.support.v4.app.FragmentActivity fragmentActivity, ConnectedServicesRegistrationUtil connectedServicesRegistrationUtil) {
             ViewModelProvider viewModelProvider = ViewModelProviders.of(fragmentActivity);
 
-            super.onCreate(viewModelProvider, connectedServicesRegistration);
+            super.onCreate(viewModelProvider, connectedServicesRegistrationUtil);
 
             TBinding binding = DataBindingUtil.setContentView(fragmentActivity, getLayoutId());
             inflateAndInitBinding(binding);
@@ -138,10 +138,10 @@ class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewMo
             super(layoutId, tViewModelClass, modelBindingVariableId, ownerView);
         }
 
-        void onCreate(Bundle savedInstanceState, android.support.v4.app.Fragment fragment, ConnectedServicesRegistration connectedServicesRegistration) {
+        void onCreate(Bundle savedInstanceState, android.support.v4.app.Fragment fragment, ConnectedServicesRegistrationUtil connectedServicesRegistrationUtil) {
             ViewModelProvider viewModelProvider = ViewModelProviders.of(fragment);
 
-            super.onCreate(viewModelProvider, connectedServicesRegistration);
+            super.onCreate(viewModelProvider, connectedServicesRegistrationUtil);
 
             if (savedInstanceState == null) {
                 viewModel.onInitialized();

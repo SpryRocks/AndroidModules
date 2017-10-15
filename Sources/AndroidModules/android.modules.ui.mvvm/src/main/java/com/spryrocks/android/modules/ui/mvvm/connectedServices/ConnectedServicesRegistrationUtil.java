@@ -21,10 +21,13 @@ import android.support.annotation.Nullable;
 
 import com.spryrocks.android.modules.ui.lifecycle.LifecycleListener;
 
-public class ConnectedServicesRegistration extends LifecycleListener implements IConnectedServicesRegistration {
+import java.util.Set;
+
+public class ConnectedServicesRegistrationUtil extends LifecycleListener implements IConnectedServices, IConnectedServicesManager {
     private IConnectedServicesManager connectedServicesManager;
+
     private IConnectedServiceReceiver connectedServiceReceiver;
-    private IConnectedServicesCallbacksReceiver connectedServicesCallbacksReceiver;
+    private IConnectedServiceCallbacksReceiver connectedServicesCallbacksReceiver;
 
     public void setConnectedServicesOwner(IConnectedServicesOwner connectedServicesOwner) {
         IConnectedServices connectedServices = connectedServicesOwner.getConnectedServices();
@@ -50,11 +53,6 @@ public class ConnectedServicesRegistration extends LifecycleListener implements 
         connectedServicesManager.clearServices();
     }
 
-    @Override
-    public <TCallbacks extends IConnectedServiceCallbacks> TCallbacks getCallbacks(Class<TCallbacks> callbacksClass) {
-        return connectedServicesCallbacksReceiver.getCallbacks(callbacksClass);
-    }
-
     @Nullable
     @Override
     public <TService extends IConnectedService> TService getService(@NonNull Class<TService> serviceClass) {
@@ -64,5 +62,11 @@ public class ConnectedServicesRegistration extends LifecycleListener implements 
     @Override
     public void onDestroy() {
         clearServices();
+    }
+
+    @NonNull
+    @Override
+    public <TCallbacks extends IConnectedServiceCallbacks> Set<TCallbacks> getCallbacks(@NonNull Class<TCallbacks> tCallbacksClass) {
+        return connectedServicesCallbacksReceiver.getCallbacks(tCallbacksClass);
     }
 }

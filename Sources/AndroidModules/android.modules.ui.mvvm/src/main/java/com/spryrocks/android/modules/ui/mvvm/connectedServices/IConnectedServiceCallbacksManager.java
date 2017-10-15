@@ -18,9 +18,12 @@ package com.spryrocks.android.modules.ui.mvvm.connectedServices;
 
 public interface IConnectedServiceCallbacksManager {
     @SuppressWarnings("unused")
-    <TCallbacks extends IConnectedServiceCallbacks, TCallbacksImpl extends TCallbacks> void connectCallbacks(Class<TCallbacks> callbacksClass, TCallbacksImpl callbacks);
+    <TCallbacks extends IConnectedServiceCallbacks, TCallbacksImpl extends TCallbacks>
+    void addCallbacks(Class<TCallbacks> callbacksClass, TCallbacksImpl callbacks);
+
     @SuppressWarnings("unused")
-    <TCallbacks extends IConnectedServiceCallbacks> void disconnectCallbacks(Class<TCallbacks> callbacksClass);
+    <TCallbacks extends IConnectedServiceCallbacks, TCallbacksImpl extends TCallbacks>
+    void removeCallbacks(Class<TCallbacks> callbacksClass, TCallbacksImpl callbacks);
 
     @SuppressWarnings("unused")
     void clearCallbacks();

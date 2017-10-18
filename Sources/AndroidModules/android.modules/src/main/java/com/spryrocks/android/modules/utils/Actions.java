@@ -22,15 +22,15 @@ public class Actions {
         R run();
     }
 
-    public interface Func1<R, T> {
+    public interface Func1<T, R> {
         R run(T arg);
     }
 
-    public interface Func2<R, T1, T2> {
+    public interface Func2<T1, T2, R> {
         R run(T1 arg1, T2 arg2);
     }
 
-    public interface Func3<R, T1, T2, T3> {
+    public interface Func3<T1, T2, T3, R> {
         R run(T1 arg1, T2 arg2, T3 arg3);
     }
 }

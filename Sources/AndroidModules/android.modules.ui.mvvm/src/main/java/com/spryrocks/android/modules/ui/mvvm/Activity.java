@@ -21,7 +21,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 
 import com.spryrocks.android.modules.ui.BaseActivity;
-import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistrationUtil;
+import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServiceCallbacksReceiver;
 
 public class Activity<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
@@ -34,12 +34,12 @@ public class Activity<TBinding extends ViewDataBinding, TViewModel extends ViewM
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        ConnectedServicesRegistrationUtil connectedServicesRegistrationUtil = new ConnectedServicesRegistrationUtil();
-        registerLifecycleListener(connectedServicesRegistrationUtil);
+        ConnectedServicesRegistration connectedServicesRegistration = new ConnectedServicesRegistration();
+        registerLifecycleListener(connectedServicesRegistration);
 
         super.onCreate(savedInstanceState);
 
-        mvvmViewImplHelper.onCreate(savedInstanceState, this, connectedServicesRegistrationUtil);
+        mvvmViewImplHelper.onCreate(savedInstanceState, this, connectedServicesRegistration);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Activity<TBinding extends ViewDataBinding, TViewModel extends ViewM
     }
 
     @Override
-    public void initConnectedServices(ConnectedServicesRegistrationUtil services) {
+    public void initConnectedServices(ConnectedServicesRegistration services) {
     }
 
     @Override

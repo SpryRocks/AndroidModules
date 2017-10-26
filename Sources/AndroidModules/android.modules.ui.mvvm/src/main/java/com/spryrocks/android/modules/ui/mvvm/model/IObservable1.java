@@ -14,28 +14,13 @@
  *     limitations under the License.
  */
 
-buildscript {
-    repositories {
-        jcenter()
-        google()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0'
-    }
-}
+package com.spryrocks.android.modules.ui.mvvm.model;
 
-allprojects {
-    repositories {
-        jcenter()
-        google()
-    }
-}
+import android.support.annotation.NonNull;
 
-project.ext {
-    compileSdkVersion = 26
-    versionCode = 1
-    versionName = "1.0"
+import com.spryrocks.android.modules.utils.Actions;
 
-    ANDROID_SUPPORT_VERSION = "26.1.0"
-    ANDROID_ARCH_VERSION = '1.0.0-beta2'
+public interface IObservable1<T> {
+    void addCallback(@NonNull Actions.Action1<T> callback);
+    void removeCallback(@NonNull Actions.Action1<T> callback);
 }

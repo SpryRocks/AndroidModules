@@ -25,7 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.spryrocks.android.modules.ui.BaseDialogFragment;
-import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistrationUtil;
+import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServiceCallbacksReceiver;
 
 @SuppressLint("ValidFragment")
@@ -40,12 +40,12 @@ public class DialogFragment<TBinding extends ViewDataBinding, TViewModel extends
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        ConnectedServicesRegistrationUtil connectedServicesRegistrationUtil = new ConnectedServicesRegistrationUtil();
-        registerLifecycleListener(connectedServicesRegistrationUtil);
+        ConnectedServicesRegistration connectedServicesRegistration = new ConnectedServicesRegistration();
+        registerLifecycleListener(connectedServicesRegistration);
 
         super.onCreate(savedInstanceState);
 
-        mvvmViewImplHelper.onCreate(savedInstanceState, this, connectedServicesRegistrationUtil);
+        mvvmViewImplHelper.onCreate(savedInstanceState, this, connectedServicesRegistration);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class DialogFragment<TBinding extends ViewDataBinding, TViewModel extends
     }
 
     @Override
-    public void initConnectedServices(ConnectedServicesRegistrationUtil services) {
+    public void initConnectedServices(ConnectedServicesRegistration services) {
     }
 
     @Override

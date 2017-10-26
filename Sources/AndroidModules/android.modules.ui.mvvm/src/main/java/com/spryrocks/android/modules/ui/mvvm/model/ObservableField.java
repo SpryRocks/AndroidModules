@@ -19,15 +19,17 @@ package com.spryrocks.android.modules.ui.mvvm.model;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.spryrocks.android.modules.utils.Actions;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
 public class ObservableField<T> extends android.databinding.ObservableField<T> {
-    private final List<Callback<T>> callbacks;
+    private final List<Actions.Action1<T>> callbacks;
 
     @SuppressWarnings("WeakerAccess")
-    public ObservableField(@Nullable T value, @Nullable Callback<T> callback) {
+    public ObservableField(@Nullable T value, @Nullable Actions.Action1<T> callback) {
         super(value);
 
         callbacks = new ArrayList<>();
@@ -38,8 +40,8 @@ public class ObservableField<T> extends android.databinding.ObservableField<T> {
     }
 
     @SuppressWarnings("WeakerAccess")
-    public ObservableField(Callback<T> valueChangedCallback) {
-        this(null, valueChangedCallback);
+    public ObservableField(Actions.Action1<T> callback) {
+        this(null, callback);
     }
 
     @SuppressWarnings("WeakerAccess")
@@ -56,22 +58,18 @@ public class ObservableField<T> extends android.databinding.ObservableField<T> {
     public void set(T value) {
         super.set(value);
 
-        for (Callback<T> callback : callbacks) {
-            callback.onValueChanged(value);
+        for (Actions.Action1<T> callback : callbacks) {
+            callback.run(value);
         }
     }
 
     @SuppressWarnings("WeakerAccess")
-    public void addCallback(@NonNull Callback<T> callback) {
+    public void addCallback(@NonNull Actions.Action1<T> callback) {
         callbacks.add(callback);
     }
 
     @SuppressWarnings("unused")
-    public void removeCallback(@NonNull Callback<T> callback) {
+    public void removeCallback(@NonNull Actions.Action1<T> callback) {
         callbacks.remove(callback);
-    }
-
-    public interface Callback<T> {
-        void onValueChanged(T value);
     }
 }

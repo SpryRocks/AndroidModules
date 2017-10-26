@@ -23,7 +23,7 @@ import com.spryrocks.android.modules.ui.lifecycle.LifecycleListener;
 
 import java.util.Set;
 
-public class ConnectedServicesRegistrationUtil extends LifecycleListener implements IConnectedServices, IConnectedServicesManager {
+public class ConnectedServicesRegistration extends LifecycleListener implements IConnectedServices, IConnectedServicesManager {
     private IConnectedServicesManager connectedServicesManager;
 
     private IConnectedServiceReceiver connectedServiceReceiver;

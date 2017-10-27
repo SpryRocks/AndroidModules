@@ -36,6 +36,6 @@ project.ext {
     versionCode = 1
     versionName = "1.0"
 
-    ANDROID_SUPPORT_VERSION = "26.1.0"
-    ANDROID_ARCH_VERSION = '1.0.0-beta2'
+    ANDROID_SUPPORT_VERSION = "27.0.0"
+    ANDROID_ARCH_VERSION = '1.0.0-rc1'
 }

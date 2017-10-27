@@ -26,7 +26,6 @@ import android.view.ViewGroup;
 
 import com.spryrocks.android.modules.ui.BaseFragment;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
-import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServiceCallbacksReceiver;
 
 @SuppressLint("ValidFragment")
 @SuppressWarnings("unused")
@@ -81,15 +80,5 @@ public class MvvmFragment<TBinding extends ViewDataBinding, TViewModel extends V
     @Override
     public TViewModel getViewModel() {
         return mvvmViewImplHelper.getViewModel();
-    }
-
-    @SuppressWarnings("unused")
-    @Override
-    public void cleanViewModel(TViewModel viewModel) {
-    }
-
-    @Override
-    public IConnectedServiceCallbacksReceiver getConnectedServicesCallbacksReceiver() {
-        return mvvmViewImplHelper.getConnectedServicesCallbacksReceiver();
     }
 }

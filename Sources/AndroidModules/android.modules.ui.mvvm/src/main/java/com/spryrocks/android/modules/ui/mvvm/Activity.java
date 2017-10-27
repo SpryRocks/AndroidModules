@@ -22,7 +22,6 @@ import android.support.annotation.LayoutRes;
 
 import com.spryrocks.android.modules.ui.BaseActivity;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
-import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServiceCallbacksReceiver;
 
 public class Activity<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
         extends BaseActivity implements IMvvmView<TBinding, TViewModel> {
@@ -70,14 +69,5 @@ public class Activity<TBinding extends ViewDataBinding, TViewModel extends ViewM
     @Override
     public TViewModel getViewModel() {
         return mvvmViewImplHelper.getViewModel();
-    }
-
-    @SuppressWarnings("unused")
-    public void cleanViewModel(TViewModel viewModel) {
-    }
-
-    @Override
-    public IConnectedServiceCallbacksReceiver getConnectedServicesCallbacksReceiver() {
-        return mvvmViewImplHelper.getConnectedServicesCallbacksReceiver();
     }
 }

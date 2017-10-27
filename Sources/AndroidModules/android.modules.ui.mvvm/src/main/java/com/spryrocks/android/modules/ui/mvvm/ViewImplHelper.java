@@ -27,7 +27,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
-import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServiceCallbacksReceiver;
 
 class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
         implements IMvvmView<TBinding, TViewModel> {
@@ -36,7 +35,6 @@ class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewMo
     private final Class<TViewModel> viewModelClass;
     private final int modelBindingVariableId;
     private TBinding binding;
-    private IConnectedServiceCallbacksReceiver connectedServicesCallbacksReceiver;
     TViewModel viewModel;
 
     ViewImplHelper(@LayoutRes int layoutId, Class<TViewModel> viewModelClass, int modelBindingVariableId, IMvvmView<TBinding, TViewModel> ownerView) {
@@ -71,18 +69,7 @@ class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewMo
         return viewModel;
     }
 
-    @Override
-    public void cleanViewModel(TViewModel viewModel) {
-        ownerView.cleanViewModel(viewModel);
-    }
-
-    @Override
-    public IConnectedServiceCallbacksReceiver getConnectedServicesCallbacksReceiver() {
-        return connectedServicesCallbacksReceiver;
-    }
-
     void onCreate(ViewModelProvider viewModelProvider, ConnectedServicesRegistration connectedServicesRegistration) {
-        connectedServicesCallbacksReceiver = connectedServicesRegistration;
 
         this.viewModel = viewModelProvider.get(viewModelClass);
         initViewModel(viewModel);
@@ -96,8 +83,6 @@ class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewMo
 
     void onDestroy() {
         viewModel.onViewDetached();
-
-        cleanViewModel(getViewModel());
     }
 
     void inflateAndInitBinding(TBinding binding) {

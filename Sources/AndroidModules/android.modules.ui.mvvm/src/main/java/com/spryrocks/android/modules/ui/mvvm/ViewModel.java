@@ -47,6 +47,11 @@ public class ViewModel<TModel> extends AndroidViewModel implements IConnectedSer
         return connectedServices;
     }
 
+    @SuppressWarnings("WeakerAccess")
+    public TModel getModel() {
+        return model;
+    }
+
     @SuppressWarnings({"unused", "WeakerAccess"})
     protected void onInitialized() {
     }
@@ -62,12 +67,6 @@ public class ViewModel<TModel> extends AndroidViewModel implements IConnectedSer
     @Override
     protected void onCleared() {
         super.onCleared();
-
-        // TODO: 02.08.2017 clear callbacks
-    }
-
-    @SuppressWarnings("WeakerAccess")
-    public TModel getModel() {
-        return model;
+        // TODO: 02.08.2017 clear callbacks ?
     }
 }

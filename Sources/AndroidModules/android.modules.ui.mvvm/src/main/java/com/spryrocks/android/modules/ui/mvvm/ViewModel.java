@@ -18,16 +18,21 @@ package com.spryrocks.android.modules.ui.mvvm;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.support.annotation.CallSuper;
 
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServices;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServiceCallbacksManager;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServices;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServicesOwner;
+import com.spryrocks.android.modules.ui.mvvm.lifecycle.ILifecycleListener;
+import com.spryrocks.android.modules.ui.mvvm.lifecycle.ILifecycleListenersCollection;
+import com.spryrocks.android.modules.ui.mvvm.lifecycle.LifecycleListenersCollection;
 
-public class ViewModel<TModel> extends AndroidViewModel implements IConnectedServicesOwner {
+public class ViewModel<TModel> extends AndroidViewModel implements IConnectedServicesOwner, ILifecycleListenersCollection {
     @SuppressWarnings("WeakerAccess")
     protected final TModel model;
     private final ConnectedServices connectedServices;
+    private final LifecycleListenersCollection lifecycleListenersCollection;
 
     public ViewModel(Application application, TModel model) {
         super(application);
@@ -35,6 +40,8 @@ public class ViewModel<TModel> extends AndroidViewModel implements IConnectedSer
         this.model = model;
 
         this.connectedServices = new ConnectedServices();
+
+        this.lifecycleListenersCollection = new LifecycleListenersCollection();
     }
 
     @Override
@@ -53,20 +60,35 @@ public class ViewModel<TModel> extends AndroidViewModel implements IConnectedSer
     }
 
     @SuppressWarnings({"unused", "WeakerAccess"})
+    @CallSuper
     protected void onInitialized() {
+        lifecycleListenersCollection.onInitialized();
     }
 
     @SuppressWarnings({"unused", "WeakerAccess"})
+    @CallSuper
     protected void onViewAttached() {
+        lifecycleListenersCollection.onViewAttached();
     }
 
     @SuppressWarnings({"unused", "WeakerAccess"})
+    @CallSuper
     protected void onViewDetached() {
+        lifecycleListenersCollection.onViewDetached();
     }
 
     @Override
+    @CallSuper
     protected void onCleared() {
         super.onCleared();
+
+        lifecycleListenersCollection.onCleared();
+
         // TODO: 02.08.2017 clear callbacks ?
+    }
+
+    @Override
+    public <T extends ILifecycleListener> T registerLifecycleListener(T lifecycleListener) {
+        return lifecycleListenersCollection.registerLifecycleListener(lifecycleListener);
     }
 }

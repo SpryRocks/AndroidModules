@@ -14,28 +14,9 @@
  *     limitations under the License.
  */
 
-buildscript {
-    repositories {
-        jcenter()
-        google()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0'
-    }
-}
+package com.spryrocks.android.modules.ui.mvvm.lifecycle;
 
-allprojects {
-    repositories {
-        jcenter()
-        google()
-    }
-}
-
-project.ext {
-    compileSdkVersion = 26
-    versionCode = 1
-    versionName = "1.0"
-
-    ANDROID_SUPPORT_VERSION = "27.0.0"
-    ANDROID_ARCH_VERSION = '1.0.0-rc1'
+public interface ILifecycleListenersCollection {
+    @SuppressWarnings("UnusedReturnValue")
+    <T extends ILifecycleListener> T registerLifecycleListener(T lifecycleListener);
 }

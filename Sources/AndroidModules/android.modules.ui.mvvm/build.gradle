@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode project.versionCode
         versionName project.versionName
     }
@@ -49,6 +49,5 @@ dependencies {
 
     implementation "com.android.support:appcompat-v7:$project.ANDROID_SUPPORT_VERSION"
 
-    implementation "android.arch.lifecycle:runtime:$project.ANDROID_ARCH_VERSION"
     implementation "android.arch.lifecycle:extensions:$project.ANDROID_ARCH_VERSION"
 }

@@ -20,15 +20,17 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.spryrocks.android.modules.ui.lifecycle.LifecycleListener;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
 
 class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
+        extends LifecycleListener
         implements IMvvmView<TBinding, TViewModel> {
     private final IMvvmView<TBinding, TViewModel> ownerView;
     private @LayoutRes final int layoutId;
@@ -69,12 +71,8 @@ class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewMo
         return viewModel;
     }
 
-    void onCreate(Bundle savedInstanceState, ViewModelProvider viewModelProvider, ConnectedServicesRegistration connectedServicesRegistration) {
+    void onCreate(ViewModelProvider viewModelProvider, ConnectedServicesRegistration connectedServicesRegistration) {
         this.viewModel = viewModelProvider.get(viewModelClass);
-
-        if (savedInstanceState == null) {
-            initViewModel(viewModel);
-        }
 
         connectedServicesRegistration.setConnectedServicesOwner(viewModel);
 
@@ -83,7 +81,18 @@ class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewMo
         viewModel.onViewAttached();
     }
 
-    void onDestroy() {
+    @Override
+    public void onStart() {
+        viewModel.onActivated();
+    }
+
+    @Override
+    public void onStop() {
+        viewModel.onDeactivated();
+    }
+
+    @Override
+    public void onDestroy() {
         viewModel.onViewDetached();
     }
 
@@ -99,23 +108,32 @@ class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewMo
         return layoutId;
     }
 
+    void initializeViewModelIfNeed(@NonNull TViewModel viewModel) {
+        if (viewModel.isInitialized)
+            return;
+
+        viewModel.isInitialized = true;
+
+        initViewModel(viewModel);
+
+        viewModel.onInitialized();
+    }
+
     static class FragmentActivity<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
             extends ViewImplHelper<TBinding, TViewModel> {
         FragmentActivity(int layoutId, Class<TViewModel> tViewModelClass, int modelBindingVariableId, IMvvmView<TBinding, TViewModel> ownerView) {
             super(layoutId, tViewModelClass, modelBindingVariableId, ownerView);
         }
 
-        void onCreate(Bundle savedInstanceState, android.support.v4.app.FragmentActivity fragmentActivity, ConnectedServicesRegistration connectedServicesRegistration) {
+        void onCreate(android.support.v4.app.FragmentActivity fragmentActivity, ConnectedServicesRegistration connectedServicesRegistration) {
             ViewModelProvider viewModelProvider = ViewModelProviders.of(fragmentActivity);
 
-            super.onCreate(savedInstanceState, viewModelProvider, connectedServicesRegistration);
+            super.onCreate(viewModelProvider, connectedServicesRegistration);
 
             TBinding binding = DataBindingUtil.setContentView(fragmentActivity, getLayoutId());
             inflateAndInitBinding(binding);
 
-            if (savedInstanceState == null) {
-                viewModel.onInitialized();
-            }
+            initializeViewModelIfNeed(viewModel);
         }
     }
 
@@ -125,14 +143,12 @@ class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewMo
             super(layoutId, tViewModelClass, modelBindingVariableId, ownerView);
         }
 
-        void onCreate(Bundle savedInstanceState, android.support.v4.app.Fragment fragment, ConnectedServicesRegistration connectedServicesRegistration) {
+        void onCreate(android.support.v4.app.Fragment fragment, ConnectedServicesRegistration connectedServicesRegistration) {
             ViewModelProvider viewModelProvider = ViewModelProviders.of(fragment);
 
-            super.onCreate(savedInstanceState, viewModelProvider, connectedServicesRegistration);
+            super.onCreate(viewModelProvider, connectedServicesRegistration);
 
-            if (savedInstanceState == null) {
-                viewModel.onInitialized();
-            }
+            initializeViewModelIfNeed(viewModel);
         }
 
         View onCreateView(LayoutInflater inflater, ViewGroup container) {

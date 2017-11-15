@@ -33,6 +33,7 @@ public class ViewModel<TModel> extends AndroidViewModel implements IConnectedSer
     protected final TModel model;
     private final ConnectedServices connectedServices;
     private final LifecycleListenersCollection lifecycleListenersCollection;
+    boolean isInitialized;
 
     public ViewModel(Application application, TModel model) {
         super(application);
@@ -75,6 +76,18 @@ public class ViewModel<TModel> extends AndroidViewModel implements IConnectedSer
     @CallSuper
     protected void onViewDetached() {
         lifecycleListenersCollection.onViewDetached();
+    }
+
+    @SuppressWarnings("WeakerAccess")
+    @CallSuper
+    protected void onActivated() {
+        lifecycleListenersCollection.onActivated();
+    }
+
+    @SuppressWarnings("WeakerAccess")
+    @CallSuper
+    protected void onDeactivated() {
+        lifecycleListenersCollection.onDeactivated();
     }
 
     @Override

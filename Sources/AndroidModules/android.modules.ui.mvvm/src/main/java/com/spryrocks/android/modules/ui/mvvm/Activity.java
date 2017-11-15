@@ -36,16 +36,11 @@ public class Activity<TBinding extends ViewDataBinding, TViewModel extends ViewM
         ConnectedServicesRegistration connectedServicesRegistration = new ConnectedServicesRegistration();
         registerLifecycleListener(connectedServicesRegistration);
 
+        registerLifecycleListener(mvvmViewImplHelper);
+
         super.onCreate(savedInstanceState);
 
-        mvvmViewImplHelper.onCreate(savedInstanceState, this, connectedServicesRegistration);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        mvvmViewImplHelper.onDestroy();
+        mvvmViewImplHelper.onCreate(this, connectedServicesRegistration);
     }
 
     @SuppressWarnings("unused")

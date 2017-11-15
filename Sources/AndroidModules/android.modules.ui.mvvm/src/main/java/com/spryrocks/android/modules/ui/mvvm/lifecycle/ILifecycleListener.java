@@ -22,5 +22,8 @@ public interface ILifecycleListener {
     void onViewAttached();
     void onViewDetached();
 
+    void onActivated();
+    void onDeactivated();
+
     void onCleared();
 }

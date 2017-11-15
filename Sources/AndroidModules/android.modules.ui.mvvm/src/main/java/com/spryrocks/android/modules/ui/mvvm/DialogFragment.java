@@ -42,21 +42,16 @@ public class DialogFragment<TBinding extends ViewDataBinding, TViewModel extends
         ConnectedServicesRegistration connectedServicesRegistration = new ConnectedServicesRegistration();
         registerLifecycleListener(connectedServicesRegistration);
 
+        registerLifecycleListener(mvvmViewImplHelper);
+
         super.onCreate(savedInstanceState);
 
-        mvvmViewImplHelper.onCreate(savedInstanceState, this, connectedServicesRegistration);
+        mvvmViewImplHelper.onCreate(this, connectedServicesRegistration);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return mvvmViewImplHelper.onCreateView(inflater, container);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        mvvmViewImplHelper.onDestroy();
     }
 
     @SuppressWarnings("unused")

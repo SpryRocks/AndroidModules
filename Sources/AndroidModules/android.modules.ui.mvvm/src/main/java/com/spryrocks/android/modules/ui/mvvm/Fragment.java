@@ -29,11 +29,11 @@ import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServices
 
 @SuppressLint("ValidFragment")
 @SuppressWarnings("unused")
-public class MvvmFragment<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
+public class Fragment<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
         extends BaseFragment implements IMvvmView<TBinding, TViewModel> {
     private ViewImplHelper.Fragment<TBinding, TViewModel> mvvmViewImplHelper;
 
-    protected MvvmFragment(@LayoutRes int layoutId, Class<TViewModel> viewModelClass, int modelBindingVariableId) {
+    protected Fragment(@LayoutRes int layoutId, Class<TViewModel> viewModelClass, int modelBindingVariableId) {
         mvvmViewImplHelper = new ViewImplHelper.Fragment<>(layoutId, viewModelClass, modelBindingVariableId, this);
     }
 
@@ -42,21 +42,16 @@ public class MvvmFragment<TBinding extends ViewDataBinding, TViewModel extends V
         ConnectedServicesRegistration connectedServicesRegistration = new ConnectedServicesRegistration();
         registerLifecycleListener(connectedServicesRegistration);
 
+        registerLifecycleListener(mvvmViewImplHelper);
+
         super.onCreate(savedInstanceState);
 
-        mvvmViewImplHelper.onCreate(savedInstanceState, this, connectedServicesRegistration);
+        mvvmViewImplHelper.onCreate(this, connectedServicesRegistration);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return mvvmViewImplHelper.onCreateView(inflater, container);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        mvvmViewImplHelper.onDestroy();
     }
 
     @SuppressWarnings("unused")

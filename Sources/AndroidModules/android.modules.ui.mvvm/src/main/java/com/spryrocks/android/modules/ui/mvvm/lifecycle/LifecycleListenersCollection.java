@@ -50,6 +50,20 @@ public class LifecycleListenersCollection implements ILifecycleListenersCollecti
     }
 
     @Override
+    public void onActivated() {
+        for (ILifecycleListener listener : listeners) {
+            listener.onActivated();
+        }
+    }
+
+    @Override
+    public void onDeactivated() {
+        for (ILifecycleListener listener : listeners) {
+            listener.onDeactivated();
+        }
+    }
+
+    @Override
     public void onCleared() {
         for (ILifecycleListener listener : listeners) {
             listener.onCleared();

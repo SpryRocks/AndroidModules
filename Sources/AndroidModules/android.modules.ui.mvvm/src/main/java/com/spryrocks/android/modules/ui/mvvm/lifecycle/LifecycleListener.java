@@ -30,6 +30,14 @@ public class LifecycleListener implements ILifecycleListener {
     }
 
     @Override
+    public void onActivated() {
+    }
+
+    @Override
+    public void onDeactivated() {
+    }
+
+    @Override
     public void onCleared() {
     }
 }

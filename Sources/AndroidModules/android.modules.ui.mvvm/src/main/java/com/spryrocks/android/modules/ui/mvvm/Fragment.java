@@ -19,6 +19,7 @@ package com.spryrocks.android.modules.ui.mvvm;
 import android.annotation.SuppressLint;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +56,7 @@ public class Fragment<TBinding extends ViewDataBinding, TViewModel extends ViewM
     }
 
     @SuppressWarnings("unused")
+    @CallSuper
     @Override
     public void initViewModel(TViewModel viewModel) {
     }

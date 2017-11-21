@@ -18,6 +18,7 @@ package com.spryrocks.android.modules.ui.mvvm;
 
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 
 import com.spryrocks.android.modules.ui.BaseActivity;
@@ -44,6 +45,7 @@ public class Activity<TBinding extends ViewDataBinding, TViewModel extends ViewM
     }
 
     @SuppressWarnings("unused")
+    @CallSuper
     @Override
     public void initViewModel(TViewModel viewModel) {
     }

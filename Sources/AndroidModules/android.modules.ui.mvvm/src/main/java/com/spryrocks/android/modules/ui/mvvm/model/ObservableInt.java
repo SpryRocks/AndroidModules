@@ -54,6 +54,11 @@ public class ObservableInt extends android.databinding.ObservableInt {
 
     @Override
     public void set(int value) {
+        int oldValue = get();
+
+        if (oldValue == value)
+            return;
+
         super.set(value);
 
         for (Callback callback : callbacks) {

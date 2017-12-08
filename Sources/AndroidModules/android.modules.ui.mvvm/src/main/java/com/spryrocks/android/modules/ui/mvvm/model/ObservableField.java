@@ -56,7 +56,15 @@ public class ObservableField<T> extends android.databinding.ObservableField<T> {
 
     @Override
     public void set(T value) {
+        T oldValue = get();
+
+        if (oldValue == value)
+            return;
+
         super.set(value);
+
+        if (oldValue != null && oldValue.equals(value))
+            return;
 
         for (Actions.Action1<T> callback : callbacks) {
             callback.run(value);

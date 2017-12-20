@@ -16,8 +16,17 @@
 
 package com.spryrocks.android.modules.ui.mvvm.connectedServices;
 
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 
-public interface IConnectedServicesCallbacksReceiver {
-    @Nullable <TCallbacks extends IConnectedServiceCallbacks> TCallbacks getCallbacks(Class<TCallbacks> callbacksClass);
+import java.util.Set;
+
+public interface IConnectedServiceCallbacksOwner extends IConnectedServiceCallbacksReceiver {
+    IConnectedServices getConnectedServices();
+
+    @NonNull
+    @Override
+    default <TCallbacks extends IConnectedServiceCallbacks>
+    Set<TCallbacks> getCallbacks(@NonNull Class<TCallbacks> tCallbacksClass) {
+        return getConnectedServices().getCallbacks(tCallbacksClass);
+    }
 }

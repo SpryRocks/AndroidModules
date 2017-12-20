@@ -14,24 +14,13 @@
  *     limitations under the License.
  */
 
-apply plugin: 'com.android.library'
+package com.spryrocks.android.modules.ui.mvvm.connectedServices;
 
-android {
-    compileSdkVersion project.compileSdkVersion
+public class MvvmConnectedServicesDebugMode {
+    static boolean isEnabled;
 
-    defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 27
-        versionCode project.versionCode
-        versionName project.versionName
+    @SuppressWarnings("unused")
+    public static void enable() {
+        isEnabled = true;
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
-
-dependencies {
 }

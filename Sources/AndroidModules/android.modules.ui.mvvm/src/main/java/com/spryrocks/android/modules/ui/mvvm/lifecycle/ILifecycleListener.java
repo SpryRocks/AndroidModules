@@ -14,24 +14,16 @@
  *     limitations under the License.
  */
 
-apply plugin: 'com.android.library'
+package com.spryrocks.android.modules.ui.mvvm.lifecycle;
 
-android {
-    compileSdkVersion project.compileSdkVersion
+public interface ILifecycleListener {
+    void onInitialized();
 
-    defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 27
-        versionCode project.versionCode
-        versionName project.versionName
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+    void onViewAttached();
+    void onViewDetached();
 
-dependencies {
+    void onActivated();
+    void onDeactivated();
+
+    void onCleared();
 }

@@ -21,24 +21,25 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.spryrocks.android.modules.ui.lifecycle.LifecycleListener;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
-import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServicesCallbacksReceiver;
 
-class MvvmViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends BaseViewModel>
+class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
+        extends LifecycleListener
         implements IMvvmView<TBinding, TViewModel> {
     private final IMvvmView<TBinding, TViewModel> ownerView;
     private @LayoutRes final int layoutId;
     private final Class<TViewModel> viewModelClass;
     private final int modelBindingVariableId;
     private TBinding binding;
-    private TViewModel viewModel;
-    private IConnectedServicesCallbacksReceiver connectedServicesCallbacksReceiver;
+    TViewModel viewModel;
 
-    MvvmViewImplHelper(@LayoutRes int layoutId, Class<TViewModel> viewModelClass, int modelBindingVariableId, IMvvmView<TBinding, TViewModel> ownerView) {
+    ViewImplHelper(@LayoutRes int layoutId, Class<TViewModel> viewModelClass, int modelBindingVariableId, IMvvmView<TBinding, TViewModel> ownerView) {
         this.layoutId = layoutId;
         this.viewModelClass = viewModelClass;
         this.modelBindingVariableId = modelBindingVariableId;
@@ -70,29 +71,29 @@ class MvvmViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends Ba
         return viewModel;
     }
 
-    @Override
-    public void cleanViewModel(TViewModel viewModel) {
-        ownerView.cleanViewModel(viewModel);
-    }
-
-    @Override
-    public IConnectedServicesCallbacksReceiver getConnectedServicesCallbacksReceiver() {
-        return connectedServicesCallbacksReceiver;
-    }
-
     void onCreate(ViewModelProvider viewModelProvider, ConnectedServicesRegistration connectedServicesRegistration) {
-        connectedServicesCallbacksReceiver = connectedServicesRegistration;
-
         this.viewModel = viewModelProvider.get(viewModelClass);
-        initViewModel(viewModel);
 
         connectedServicesRegistration.setConnectedServicesOwner(viewModel);
 
         initConnectedServices(connectedServicesRegistration);
+
+        viewModel.onViewAttached();
     }
 
-    void onDestroy() {
-        cleanViewModel(getViewModel());
+    @Override
+    public void onStart() {
+        viewModel.onActivated();
+    }
+
+    @Override
+    public void onStop() {
+        viewModel.onDeactivated();
+    }
+
+    @Override
+    public void onDestroy() {
+        viewModel.onViewDetached();
     }
 
     void inflateAndInitBinding(TBinding binding) {
@@ -107,8 +108,19 @@ class MvvmViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends Ba
         return layoutId;
     }
 
-    static class FragmentActivity<TBinding extends ViewDataBinding, TViewModel extends BaseViewModel>
-            extends MvvmViewImplHelper<TBinding, TViewModel> {
+    void initializeViewModelIfNeed(@NonNull TViewModel viewModel) {
+        if (viewModel.isInitialized)
+            return;
+
+        viewModel.isInitialized = true;
+
+        initViewModel(viewModel);
+
+        viewModel.onInitialized();
+    }
+
+    static class FragmentActivity<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
+            extends ViewImplHelper<TBinding, TViewModel> {
         FragmentActivity(int layoutId, Class<TViewModel> tViewModelClass, int modelBindingVariableId, IMvvmView<TBinding, TViewModel> ownerView) {
             super(layoutId, tViewModelClass, modelBindingVariableId, ownerView);
         }
@@ -120,10 +132,13 @@ class MvvmViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends Ba
 
             TBinding binding = DataBindingUtil.setContentView(fragmentActivity, getLayoutId());
             inflateAndInitBinding(binding);
+
+            initializeViewModelIfNeed(viewModel);
         }
     }
-    static class Fragment<TBinding extends ViewDataBinding, TViewModel extends BaseViewModel>
-            extends MvvmViewImplHelper<TBinding, TViewModel> {
+
+    static class Fragment<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
+            extends ViewImplHelper<TBinding, TViewModel> {
         Fragment(int layoutId, Class<TViewModel> tViewModelClass, int modelBindingVariableId, IMvvmView<TBinding, TViewModel> ownerView) {
             super(layoutId, tViewModelClass, modelBindingVariableId, ownerView);
         }
@@ -132,6 +147,8 @@ class MvvmViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends Ba
             ViewModelProvider viewModelProvider = ViewModelProviders.of(fragment);
 
             super.onCreate(viewModelProvider, connectedServicesRegistration);
+
+            initializeViewModelIfNeed(viewModel);
         }
 
         View onCreateView(LayoutInflater inflater, ViewGroup container) {

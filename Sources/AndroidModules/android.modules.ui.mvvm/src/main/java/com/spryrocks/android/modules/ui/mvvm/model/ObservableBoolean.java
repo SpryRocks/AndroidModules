@@ -54,6 +54,11 @@ public class ObservableBoolean extends android.databinding.ObservableBoolean {
 
     @Override
     public void set(boolean value) {
+        boolean oldValue = get();
+
+        if (oldValue == value)
+            return;
+
         super.set(value);
 
         for (Callback callback : callbacks) {

@@ -19,20 +19,18 @@ package com.spryrocks.android.modules.ui.mvvm.model;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.spryrocks.android.modules.utils.Actions;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class ObservableField<T> extends android.databinding.ObservableField<T> {
-    private final List<Actions.Action1<T>> callbacks;
+public class ObservableInt extends android.databinding.ObservableInt {
+    private final List<Callback> callbacks;
 
     @SuppressWarnings("WeakerAccess")
-    public ObservableField(@Nullable T value, @Nullable Actions.Action1<T> callback) {
+    public ObservableInt(int value, @Nullable Callback callback) {
         super(value);
 
-        callbacks = new ArrayList<>();
+        this.callbacks = new ArrayList<>();
 
         if (callback != null) {
             addCallback(callback);
@@ -40,44 +38,45 @@ public class ObservableField<T> extends android.databinding.ObservableField<T> {
     }
 
     @SuppressWarnings("WeakerAccess")
-    public ObservableField(Actions.Action1<T> callback) {
-        this(null, callback);
-    }
-
-    @SuppressWarnings("WeakerAccess")
-    public ObservableField(T value) {
+    public ObservableInt(int value) {
         this(value, null);
     }
 
     @SuppressWarnings("WeakerAccess")
-    public ObservableField() {
-        this(null, null);
+    public ObservableInt(Callback valueChangedCallback) {
+        this(0, valueChangedCallback);
+    }
+
+    @SuppressWarnings("WeakerAccess")
+    public ObservableInt() {
+        this(0, null);
     }
 
     @Override
-    public void set(T value) {
-        T oldValue = get();
+    public void set(int value) {
+        int oldValue = get();
 
         if (oldValue == value)
             return;
 
         super.set(value);
 
-        if (oldValue != null && oldValue.equals(value))
-            return;
-
-        for (Actions.Action1<T> callback : callbacks) {
-            callback.run(value);
+        for (Callback callback : callbacks) {
+            callback.onValueChanged(value);
         }
     }
 
     @SuppressWarnings("WeakerAccess")
-    public void addCallback(@NonNull Actions.Action1<T> callback) {
+    public void addCallback(@NonNull Callback callback) {
         callbacks.add(callback);
     }
 
     @SuppressWarnings("unused")
-    public void removeCallback(@NonNull Actions.Action1<T> callback) {
+    public void removeCallback(@NonNull Callback callback) {
         callbacks.remove(callback);
+    }
+
+    public interface Callback {
+        void onValueChanged(int value);
     }
 }

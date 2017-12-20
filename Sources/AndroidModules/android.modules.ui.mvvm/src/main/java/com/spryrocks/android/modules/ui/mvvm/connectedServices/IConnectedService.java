@@ -16,5 +16,6 @@
 
 package com.spryrocks.android.modules.ui.mvvm.connectedServices;
 
+@SuppressWarnings("WeakerAccess")
 public interface IConnectedService {
 }

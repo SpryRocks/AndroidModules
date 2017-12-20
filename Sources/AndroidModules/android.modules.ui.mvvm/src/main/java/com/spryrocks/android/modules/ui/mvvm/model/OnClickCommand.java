@@ -16,64 +16,27 @@
 
 package com.spryrocks.android.modules.ui.mvvm.model;
 
-import android.databinding.ObservableBoolean;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @SuppressWarnings("unused")
-public class OnClickCommand implements View.OnClickListener {
-    private final List<Callback> callbacks;
-    private final ObservableBoolean isEnabled;
-
-    @SuppressWarnings("WeakerAccess")
-    public OnClickCommand(@Nullable Callback callback) {
-        callbacks = new ArrayList<>();
-        isEnabled = new ObservableBoolean(true);
-
-        if (callback != null) {
-            addCallback(callback);
-        }
-    }
-
-    public OnClickCommand() {
-        this(null);
-    }
-
+public class OnClickCommand extends Command implements View.OnClickListener {
     @Override
-    public void onClick(View v) {
-        onClick();
+    public void onClick(View view) {
+        click();
     }
 
-    @SuppressWarnings("WeakerAccess")
-    public void onClick() {
-        for (Callback callback : callbacks) {
-            callback.onClick();
+    public static class Default1<T> extends Command1.Default<T> implements View.OnClickListener {
+        public Default1() {
         }
-    }
 
-    public ObservableBoolean isEnabled() {
-        return isEnabled;
-    }
+        public Default1(@Nullable T defaultValue) {
+            super(defaultValue);
+        }
 
-    public void setEnabled(boolean enabled) {
-        isEnabled.set(enabled);
-    }
-
-    @SuppressWarnings("WeakerAccess")
-    public void addCallback(@NonNull Callback callback) {
-        callbacks.add(callback);
-    }
-
-    @SuppressWarnings("unused")
-    public void removeCallback(@NonNull Callback callback) {
-        callbacks.remove(callback);
-    }
-
-    public interface Callback {
-        void onClick();
+        @Override
+        public void onClick(View view) {
+            click();
+        }
     }
 }

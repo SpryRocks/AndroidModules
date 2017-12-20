@@ -14,24 +14,13 @@
  *     limitations under the License.
  */
 
-apply plugin: 'com.android.library'
+package com.spryrocks.android.modules.ui.mvvm.model;
 
-android {
-    compileSdkVersion project.compileSdkVersion
+import android.support.annotation.NonNull;
 
-    defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 27
-        versionCode project.versionCode
-        versionName project.versionName
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+import com.spryrocks.android.modules.utils.Actions;
 
-dependencies {
+public interface IObservable1<T> {
+    void addCallback(@NonNull Actions.Action1<T> callback);
+    void removeCallback(@NonNull Actions.Action1<T> callback);
 }

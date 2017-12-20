@@ -19,9 +19,10 @@ package com.spryrocks.android.modules.ui.mvvm;
 import android.databinding.ViewDataBinding;
 
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
-import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServicesCallbacksReceiver;
+import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServiceCallbacksOwner;
+import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServices;
 
-public interface IMvvmView<TBinding extends ViewDataBinding, TViewModel extends BaseViewModel> {
+public interface IMvvmView<TBinding extends ViewDataBinding, TViewModel extends ViewModel> extends IConnectedServiceCallbacksOwner {
     void initViewModel(TViewModel viewModel);
 
     void initConnectedServices(ConnectedServicesRegistration services);
@@ -34,7 +35,8 @@ public interface IMvvmView<TBinding extends ViewDataBinding, TViewModel extends 
     @SuppressWarnings("unused")
     TViewModel getViewModel();
 
-    void cleanViewModel(TViewModel viewModel);
-
-    IConnectedServicesCallbacksReceiver getConnectedServicesCallbacksReceiver();
+    @Override
+    default IConnectedServices getConnectedServices() {
+        return getViewModel().getConnectedServices();
+    }
 }

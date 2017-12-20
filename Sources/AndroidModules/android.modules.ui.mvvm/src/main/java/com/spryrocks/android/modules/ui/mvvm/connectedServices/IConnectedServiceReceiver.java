@@ -16,8 +16,24 @@
 
 package com.spryrocks.android.modules.ui.mvvm.connectedServices;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.spryrocks.android.modules.utils.Actions;
+
+import static com.spryrocks.android.modules.utils.Monads.maybeNull;
+
 public interface IConnectedServiceReceiver {
-    @Nullable <TService extends IConnectedService> TService getService(Class<TService> serviceClass);
+    @Nullable
+    <TService extends IConnectedService> TService getService(@NonNull Class<TService> serviceClass);
+
+    @SuppressWarnings("unused")
+    default <TService extends IConnectedService> void useService(@NonNull Class<TService> serviceClass, @NonNull Actions.Action1<TService> action) {
+        TService service = this.getService(serviceClass);
+        if (MvvmConnectedServicesDebugMode.isEnabled && service == null) {
+            throw new RuntimeException(serviceClass.getName() + " not found. Make sure you call connectService(...) method in the view class (fragment or activity)");
+        }
+
+        maybeNull(service, action);
+    }
 }

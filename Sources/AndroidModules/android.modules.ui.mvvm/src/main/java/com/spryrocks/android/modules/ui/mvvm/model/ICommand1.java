@@ -14,24 +14,8 @@
  *     limitations under the License.
  */
 
-apply plugin: 'com.android.library'
+package com.spryrocks.android.modules.ui.mvvm.model;
 
-android {
-    compileSdkVersion project.compileSdkVersion
-
-    defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 27
-        versionCode project.versionCode
-        versionName project.versionName
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
-
-dependencies {
+public interface ICommand1<T> {
+    void click(T value);
 }

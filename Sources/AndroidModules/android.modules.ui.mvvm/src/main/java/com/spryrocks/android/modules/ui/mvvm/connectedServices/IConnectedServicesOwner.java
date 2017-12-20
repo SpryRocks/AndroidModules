@@ -16,6 +16,18 @@
 
 package com.spryrocks.android.modules.ui.mvvm.connectedServices;
 
-public interface IConnectedServicesOwner {
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
+public interface IConnectedServicesOwner extends IConnectedServiceReceiver {
     IConnectedServices getConnectedServices();
+    @SuppressWarnings("unused")
+    IConnectedServiceCallbacksManager getConnectedServiceCallbacksManager();
+
+    @Nullable
+    @Override
+    default <TService extends IConnectedService>
+    TService getService(@NonNull Class<TService> tServiceClass) {
+        return getConnectedServices().getService(tServiceClass);
+    }
 }

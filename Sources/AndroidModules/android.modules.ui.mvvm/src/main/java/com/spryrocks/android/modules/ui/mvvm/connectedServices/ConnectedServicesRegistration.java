@@ -16,24 +16,18 @@
 
 package com.spryrocks.android.modules.ui.mvvm.connectedServices;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListener;
-import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListenersCollection;
 import com.spryrocks.android.modules.ui.lifecycle.LifecycleListener;
 
-public class ConnectedServicesRegistration extends LifecycleListener implements IConnectedServicesRegistration {
-    private final ILifecycleListenersCollection lifecycleListenersCollection;
+import java.util.Set;
 
+public class ConnectedServicesRegistration extends LifecycleListener implements IConnectedServices, IConnectedServicesManager {
     private IConnectedServicesManager connectedServicesManager;
+
     private IConnectedServiceReceiver connectedServiceReceiver;
-    private IConnectedServicesCallbacksReceiver connectedServicesCallbacksReceiver;
-
-    public ConnectedServicesRegistration(ILifecycleListenersCollection lifecycleListenersCollection) {
-        this.lifecycleListenersCollection = lifecycleListenersCollection;
-
-        lifecycleListenersCollection.registerLifecycleListener(this);
-    }
+    private IConnectedServiceCallbacksReceiver connectedServicesCallbacksReceiver;
 
     public void setConnectedServicesOwner(IConnectedServicesOwner connectedServicesOwner) {
         IConnectedServices connectedServices = connectedServicesOwner.getConnectedServices();
@@ -45,9 +39,6 @@ public class ConnectedServicesRegistration extends LifecycleListener implements 
     @Override
     public <TService extends IConnectedService, TServiceImpl extends TService> TServiceImpl connectService(Class<TService> serviceClass, TServiceImpl service) {
         connectedServicesManager.connectService(serviceClass, service);
-
-        if (service instanceof ILifecycleListener)
-            lifecycleListenersCollection.registerLifecycleListener((ILifecycleListener) service);
 
         return service;
     }
@@ -62,19 +53,20 @@ public class ConnectedServicesRegistration extends LifecycleListener implements 
         connectedServicesManager.clearServices();
     }
 
-    @Override
-    public <TCallbacks extends IConnectedServiceCallbacks> TCallbacks getCallbacks(Class<TCallbacks> callbacksClass) {
-        return connectedServicesCallbacksReceiver.getCallbacks(callbacksClass);
-    }
-
     @Nullable
     @Override
-    public <TService extends IConnectedService> TService getService(Class<TService> serviceClass) {
+    public <TService extends IConnectedService> TService getService(@NonNull Class<TService> serviceClass) {
         return connectedServiceReceiver.getService(serviceClass);
     }
 
     @Override
     public void onDestroy() {
         clearServices();
+    }
+
+    @NonNull
+    @Override
+    public <TCallbacks extends IConnectedServiceCallbacks> Set<TCallbacks> getCallbacks(@NonNull Class<TCallbacks> tCallbacksClass) {
+        return connectedServicesCallbacksReceiver.getCallbacks(tCallbacksClass);
     }
 }

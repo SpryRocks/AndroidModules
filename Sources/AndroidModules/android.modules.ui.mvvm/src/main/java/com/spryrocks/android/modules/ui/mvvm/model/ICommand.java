@@ -14,7 +14,8 @@
  *     limitations under the License.
  */
 
-package com.spryrocks.android.modules.ui.mvvm.connectedServices;
+package com.spryrocks.android.modules.ui.mvvm.model;
 
-interface IConnectedServicesRegistration extends IConnectedServices, IConnectedServicesManager {
+public interface ICommand {
+    void click();
 }

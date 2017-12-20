@@ -18,11 +18,10 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion project.compileSdkVersion
-    buildToolsVersion project.buildToolsVersion
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode project.versionCode
         versionName project.versionName
     }
@@ -37,6 +36,11 @@ android {
     dataBinding {
         enabled = true
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -45,6 +49,5 @@ dependencies {
 
     implementation "com.android.support:appcompat-v7:$project.ANDROID_SUPPORT_VERSION"
 
-    implementation "android.arch.lifecycle:runtime:$project.ANDROID_ARCH_VERSION"
     implementation "android.arch.lifecycle:extensions:$project.ANDROID_ARCH_VERSION"
 }

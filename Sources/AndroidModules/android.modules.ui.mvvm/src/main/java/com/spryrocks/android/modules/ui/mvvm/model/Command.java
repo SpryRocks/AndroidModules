@@ -14,24 +14,15 @@
  *     limitations under the License.
  */
 
-apply plugin: 'com.android.library'
+package com.spryrocks.android.modules.ui.mvvm.model;
 
-android {
-    compileSdkVersion project.compileSdkVersion
+import com.spryrocks.android.modules.utils.Actions;
 
-    defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 27
-        versionCode project.versionCode
-        versionName project.versionName
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+public class Command extends CommandBase<Actions.Action> implements ICommand, IObservable {
+    @Override
+    public void click() {
+        for (Actions.Action callback : callbacks) {
+            callback.run();
         }
     }
-}
-
-dependencies {
 }

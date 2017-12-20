@@ -16,15 +16,22 @@
 
 package com.spryrocks.android.modules.ui.mvvm.connectedServices;
 
-public interface IConnectedServiceCallbacksManager {
-    @SuppressWarnings("unused")
-    <TCallbacks extends IConnectedServiceCallbacks, TCallbacksImpl extends TCallbacks>
-    void addCallbacks(Class<TCallbacks> callbacksClass, TCallbacksImpl callbacks);
+import android.support.annotation.NonNull;
+
+import com.spryrocks.android.modules.utils.Actions;
+
+import java.util.Set;
+
+public interface IConnectedServiceCallbacksReceiver {
+    @NonNull <TCallbacks extends IConnectedServiceCallbacks>
+    Set<TCallbacks> getCallbacks(@NonNull Class<TCallbacks> callbacksClass);
 
     @SuppressWarnings("unused")
-    <TCallbacks extends IConnectedServiceCallbacks, TCallbacksImpl extends TCallbacks>
-    void removeCallbacks(Class<TCallbacks> callbacksClass, TCallbacksImpl callbacks);
-
-    @SuppressWarnings("unused")
-    void clearCallbacks();
+    default <TCallbacks extends IConnectedServiceCallbacks>
+    void useCallbacks(@NonNull Class<TCallbacks> tCallbacksClass, @NonNull Actions.Action1<TCallbacks> action) {
+        @NonNull Set<TCallbacks> callbacks = getCallbacks(tCallbacksClass);
+        for (TCallbacks callback : callbacks) {
+            action.run(callback);
+        }
+    }
 }

@@ -21,17 +21,17 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.spryrocks.android.modules.ui.BaseDialogFragment;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
 
 @SuppressLint("ValidFragment")
 @SuppressWarnings("unused")
 public class DialogFragment<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
-        extends BaseDialogFragment implements IMvvmView<TBinding, TViewModel> {
+        extends com.spryrocks.android.modules.ui.DialogFragment implements IMvvmView<TBinding, TViewModel> {
     private final ViewImplHelper.Fragment<TBinding, TViewModel> mvvmViewImplHelper;
 
     protected DialogFragment(@LayoutRes int layoutId, Class<TViewModel> viewModelClass, int modelBindingVariableId) {
@@ -51,7 +51,7 @@ public class DialogFragment<TBinding extends ViewDataBinding, TViewModel extends
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return mvvmViewImplHelper.onCreateView(inflater, container);
     }
 

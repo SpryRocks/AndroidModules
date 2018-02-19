@@ -21,11 +21,10 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 
-import com.spryrocks.android.modules.ui.BaseActivity;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
 
 public class Activity<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
-        extends BaseActivity implements IMvvmView<TBinding, TViewModel> {
+        extends com.spryrocks.android.modules.ui.Activity implements IMvvmView<TBinding, TViewModel> {
     private final ViewImplHelper.FragmentActivity<TBinding, TViewModel> mvvmViewImplHelper;
 
     protected Activity(@LayoutRes int layoutId, Class<TViewModel> viewModelClass, int modelBindingVariableId) {

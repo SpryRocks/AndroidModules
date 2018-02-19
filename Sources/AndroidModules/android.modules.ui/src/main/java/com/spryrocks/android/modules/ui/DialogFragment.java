@@ -16,75 +16,78 @@
 
 package com.spryrocks.android.modules.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.view.View;
 
-import com.spryrocks.android.modules.ui.lifecycle.ActivityLifecycleListenersCollection;
+import com.spryrocks.android.modules.ui.lifecycle.FragmentLifecycleListenersCollection;
 import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListener;
 import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListenersCollection;
 
-public class BaseActivity extends AppCompatActivity implements ILifecycleListenersCollection {
-    private final ActivityLifecycleListenersCollection lifecycleListenersCollection;
+@SuppressWarnings("unused")
+public class DialogFragment extends android.support.v4.app.DialogFragment implements ILifecycleListenersCollection {
+    private final FragmentLifecycleListenersCollection lifecycleListenersCollection;
 
-    public BaseActivity() {
-        lifecycleListenersCollection = new ActivityLifecycleListenersCollection();
+    public DialogFragment() {
+        lifecycleListenersCollection = new FragmentLifecycleListenersCollection();
     }
-
 
     /* lifecycle */
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         lifecycleListenersCollection.onCreate(savedInstanceState);
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
 
         lifecycleListenersCollection.onStart();
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
 
         lifecycleListenersCollection.onResume();
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
         lifecycleListenersCollection.onSaveInstanceState(outState);
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
 
         lifecycleListenersCollection.onPause();
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
 
         lifecycleListenersCollection.onStop();
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
 
         lifecycleListenersCollection.onDestroy();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(lifecycleListenersCollection.onActivityResult(requestCode, resultCode, data))
             return;
 
@@ -92,10 +95,38 @@ public class BaseActivity extends AppCompatActivity implements ILifecycleListene
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        lifecycleListenersCollection.onRestoreInstanceState(savedInstanceState);
+        lifecycleListenersCollection.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        lifecycleListenersCollection.onAttach(context);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        lifecycleListenersCollection.onDetach();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        lifecycleListenersCollection.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        lifecycleListenersCollection.onDestroyView();
     }
 
 

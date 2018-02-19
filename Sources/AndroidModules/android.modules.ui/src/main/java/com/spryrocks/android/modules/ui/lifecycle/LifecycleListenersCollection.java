@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LifecycleListenersCollection implements ILifecycleListenersCollection, ILifecycleListener {
-    protected final List<ILifecycleListener> listeners;
+    final List<ILifecycleListener> listeners;
     private boolean isCreated;
 
     public LifecycleListenersCollection() {
@@ -107,13 +107,15 @@ public class LifecycleListenersCollection implements ILifecycleListenersCollecti
     }
 
     @Override
-    public void registerListener(ILifecycleListener listener) {
+    public <T extends ILifecycleListener> T registerLifecycleListener(T lifecycleListener) {
         checkLockedState();
 
-        listeners.add(listener);
+        listeners.add(lifecycleListener);
+
+        return lifecycleListener;
     }
 
-    public void checkLockedState() {
+    private void checkLockedState() {
         if (isCreated)
             throw new RuntimeException("Cannot register listener after onCreate");
     }

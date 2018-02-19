@@ -16,22 +16,21 @@
 
 package com.spryrocks.android.modules.ui.mvp.v2;
 
+import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListener;
 import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListenersCollection;
 
+@SuppressWarnings("unused")
 public class PresenterCollection {
-    private final LogicCollection logicCollection;
-
-    public PresenterCollection(LogicCollection logicCollection) {
-        this.logicCollection = logicCollection;
-    }
+    private final ILifecycleListenersCollection lifecycleListenersCollection;
 
     public PresenterCollection(ILifecycleListenersCollection lifecycleListenersCollection) {
-        this(new LogicCollection(lifecycleListenersCollection));
+        this.lifecycleListenersCollection = lifecycleListenersCollection;
     }
 
     public <TPresenter extends IPresenter<TPresenterView>, TPresenterView>
     TPresenter registerPresenter(TPresenter presenter, TPresenterView presenterView) {
-        logicCollection.registerLogic(presenter);
+        if (presenter instanceof ILifecycleListener)
+            lifecycleListenersCollection.registerLifecycleListener((ILifecycleListener) presenter);
 
         presenter.setView(presenterView);
 

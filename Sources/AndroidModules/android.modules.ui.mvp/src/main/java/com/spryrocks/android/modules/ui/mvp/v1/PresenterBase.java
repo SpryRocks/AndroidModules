@@ -19,14 +19,17 @@ package com.spryrocks.android.modules.ui.mvp.v1;
 import android.content.Intent;
 import android.os.Bundle;
 
-public abstract class PresenterBase<TPresenterView> implements IPresenter<TPresenterView>, IPresenterCollection {
+import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListener;
+import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListenersCollection;
+import com.spryrocks.android.modules.ui.lifecycle.LifecycleListenersCollection;
 
+public abstract class PresenterBase<TPresenterView> implements IPresenter<TPresenterView>, ILifecycleListenersCollection {
     private TPresenterView presenterView;
 
-    private PresenterCollection presenterCollection;
+    private LifecycleListenersCollection lifecycleListenersCollection;
 
     public PresenterBase() {
-        presenterCollection = new PresenterCollection();
+        lifecycleListenersCollection = new LifecycleListenersCollection();
     }
 
     @Override
@@ -45,42 +48,42 @@ public abstract class PresenterBase<TPresenterView> implements IPresenter<TPrese
         if(presenterView == null)
             throw new NullPointerException("presenterView cannot to be null");
 
-        presenterCollection.onCreate(savedInstanceState);
+        lifecycleListenersCollection.onCreate(savedInstanceState);
     }
 
     @Override
     public void onStart() {
-        presenterCollection.onStart();
+        lifecycleListenersCollection.onStart();
     }
 
     @Override
     public void onResume() {
-        presenterCollection.onResume();
+        lifecycleListenersCollection.onResume();
     }
 
     @Override
     public void onPause() {
-        presenterCollection.onPause();
+        lifecycleListenersCollection.onPause();
     }
 
     @Override
     public void onStop() {
-        presenterCollection.onStop();
+        lifecycleListenersCollection.onStop();
     }
 
     @Override
     public void onDestroy() {
-        presenterCollection.onDestroy();
+        lifecycleListenersCollection.onDestroy();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        presenterCollection.onSaveInstanceState(outState);
+        lifecycleListenersCollection.onSaveInstanceState(outState);
     }
 
     @Override
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
-        return presenterCollection.onActivityResult(requestCode, resultCode, data);
+        return lifecycleListenersCollection.onActivityResult(requestCode, resultCode, data);
     }
 
 
@@ -94,9 +97,7 @@ public abstract class PresenterBase<TPresenterView> implements IPresenter<TPrese
     /* public methods */
 
     @Override
-    public <TPresenter extends IPresenter<TPresenterView2>, TPresenterView2>
-    TPresenter registerPresenter(TPresenter presenter, TPresenterView2 presenterView) {
-        return presenterCollection.registerPresenter(presenter, presenterView);
+    public <T extends ILifecycleListener> T registerLifecycleListener(T lifecycleListener) {
+        return lifecycleListenersCollection.registerLifecycleListener(lifecycleListener);
     }
-
 }

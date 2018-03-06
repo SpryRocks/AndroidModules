@@ -20,7 +20,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0-alpha04'
+        classpath 'com.android.tools.build:gradle:3.2.0-alpha05'
     }
 }
 
@@ -36,6 +36,6 @@ project.ext {
     versionCode = 1
     versionName = "1.0"
 
-    ANDROID_SUPPORT_VERSION = "27.0.2"
+    ANDROID_SUPPORT_VERSION = "27.1.0"
     ANDROID_ARCH_VERSION = '1.1.0'
 }

@@ -21,6 +21,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0-alpha15'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
     }
 }
 

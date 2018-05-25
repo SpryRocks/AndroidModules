@@ -15,6 +15,9 @@
  */
 
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group='com.github.spryrocks.androidmodules.data.loaders'
 
 android {
     compileSdkVersion project.compileSdkVersion

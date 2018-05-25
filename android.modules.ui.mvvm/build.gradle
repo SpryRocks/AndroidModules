@@ -49,7 +49,6 @@ android {
 dependencies {
     implementation project(":android.modules")
     implementation project(":android.modules.ui")
-
-    implementation "com.android.support:appcompat-v7:$project.ANDROID_SUPPORT_VERSION"
-    implementation "android.arch.lifecycle:extensions:$project.ANDROID_ARCH_VERSION"
+    api "com.android.support:appcompat-v7:$project.ANDROID_SUPPORT_VERSION"
+    api "android.arch.lifecycle:extensions:$project.ANDROID_ARCH_VERSION"
 }

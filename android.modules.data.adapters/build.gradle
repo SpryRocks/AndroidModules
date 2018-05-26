@@ -15,6 +15,9 @@
  */
 
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group='com.github.spryrocks.androidmodules'
 
 android {
     compileSdkVersion project.compileSdkVersion
@@ -34,5 +37,6 @@ android {
 }
 
 dependencies {
-    implementation project(':android.modules')
+    implementation project(':android.modules.data')
+    compileOnly "com.android.support:recyclerview-v7:$project.ANDROID_SUPPORT_VERSION"
 }

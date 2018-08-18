@@ -15,6 +15,9 @@
  */
 
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group='com.github.spryrocks.androidmodules'
 
 android {
     compileSdkVersion project.compileSdkVersion
@@ -24,6 +27,7 @@ android {
         targetSdkVersion 27
         versionCode project.versionCode
         versionName project.versionName
+
     }
     buildTypes {
         release {
@@ -31,9 +35,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    implementation project(':android.modules.data')
-    implementation "com.android.support:recyclerview-v7:$project.ANDROID_SUPPORT_VERSION"
+    implementation project(':android.modules')
+    compileOnly "com.android.support:support-fragment:$project.ANDROID_SUPPORT_VERSION"
+    compileOnly "com.android.support:appcompat-v7:$project.ANDROID_SUPPORT_VERSION"
 }

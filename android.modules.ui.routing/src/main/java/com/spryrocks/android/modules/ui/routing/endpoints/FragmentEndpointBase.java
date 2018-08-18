@@ -25,6 +25,7 @@ class FragmentEndpointBase<TFragment extends Fragment> extends EndpointBase<IFra
 
     static class Wrapper<TFragment extends Fragment> extends EndpointBase.Wrapper<IFrameTarget, TFragment, FrameEndpointSettings> {
         boolean clearBackStack;
+        boolean hideKeyboard;
 
         Wrapper(IFrameTarget target, Class<TFragment> tFragmentClass) {
             super(target, createFragment(tFragmentClass));
@@ -36,6 +37,7 @@ class FragmentEndpointBase<TFragment extends Fragment> extends EndpointBase<IFra
                 return;
 
             clearBackStack = settings.clearBackStack;
+            hideKeyboard = settings.hideKeyboard;
         }
 
         @Override

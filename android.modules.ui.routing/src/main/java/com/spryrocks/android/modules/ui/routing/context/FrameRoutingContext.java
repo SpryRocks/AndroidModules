@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.spryrocks.android.modules.ui.IOnBackPressedSupport;
+import com.spryrocks.android.modules.ui.util.RoutingUI;
 import com.spryrocks.android.modules.utils.Actions;
 
 public class FrameRoutingContext implements IFrameRoutingContext {
@@ -59,7 +60,7 @@ public class FrameRoutingContext implements IFrameRoutingContext {
     }
 
     @Override
-    public void replaceFragment(@NonNull Fragment fragment, boolean clearBackStack) {
+    public void replaceFragment(@NonNull Fragment fragment, boolean clearBackStack, boolean hideKeyboard) {
         FragmentTransaction transaction = fragmentManager.beginTransaction()
                 .replace(containerViewId, fragment);
 
@@ -73,6 +74,10 @@ public class FrameRoutingContext implements IFrameRoutingContext {
         }
 
         // TODO: 28.10.2017  clear back stack
+
+
+        if (hideKeyboard)
+            RoutingUI.hideKeyboard(fragment.getActivity());
 
         transaction.commit();
     }

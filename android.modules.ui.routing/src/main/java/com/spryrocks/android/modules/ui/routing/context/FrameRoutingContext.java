@@ -1,5 +1,6 @@
 package com.spryrocks.android.modules.ui.routing.context;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.IdRes;
@@ -12,11 +13,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.spryrocks.android.modules.ui.IOnBackPressedSupport;
+import com.spryrocks.android.modules.ui.utils.KeyboardUtils;
 import com.spryrocks.android.modules.utils.Actions;
 
 public class FrameRoutingContext implements IFrameRoutingContext {
-    @NonNull
-    private final Context context;
+    @Nullable
+    private final Activity activity;
+    @Nullable
+    private final Fragment fragment;
 
     @NonNull
     private final IScreenTarget screenTarget;
@@ -32,20 +36,22 @@ public class FrameRoutingContext implements IFrameRoutingContext {
     private Actions.Action1<Fragment> onCurrentFragmentChangedListener;
 
     FrameRoutingContext(FragmentActivity activity, IScreenTarget screenTarget, IDialogTarget dialogTarget, @IdRes int containerViewId) {
-        this(activity, screenTarget, dialogTarget, activity.getSupportFragmentManager(), containerViewId);
+        this(activity, null, screenTarget, dialogTarget, activity.getSupportFragmentManager(), containerViewId);
     }
 
     FrameRoutingContext(@NonNull Fragment fragment, boolean useChildFragmentManager, @NonNull IScreenTarget screenTarget, @NonNull IDialogTarget dialogTarget, @IdRes int containerViewId) {
-        this(fragment.getContext(), screenTarget, dialogTarget, !useChildFragmentManager ? fragment.getFragmentManager() : fragment.getChildFragmentManager(), containerViewId);
+        this(null, fragment, screenTarget, dialogTarget, !useChildFragmentManager ? fragment.getFragmentManager() : fragment.getChildFragmentManager(), containerViewId);
     }
 
-    private FrameRoutingContext(@Nullable Context context, @NonNull IScreenTarget screenTarget, @NonNull IDialogTarget dialogTarget, @Nullable FragmentManager fragmentManager, int containerViewId) {
-        if (context == null)
-            throw new RuntimeException("context could not be null");
+    private FrameRoutingContext(@Nullable Activity activity, @Nullable Fragment fragment, @NonNull IScreenTarget screenTarget, @NonNull IDialogTarget dialogTarget, @Nullable FragmentManager fragmentManager, int containerViewId) {
+        if (activity == null && fragment == null)
+            throw new RuntimeException("activity and fragment cannot be null in same time");
+
         if (fragmentManager == null)
             throw new RuntimeException("fragmentManager could not be null");
 
-        this.context = context;
+        this.activity = activity;
+        this.fragment = fragment;
         this.screenTarget = screenTarget;
         this.dialogTarget = dialogTarget;
         this.fragmentManager = fragmentManager;
@@ -59,7 +65,7 @@ public class FrameRoutingContext implements IFrameRoutingContext {
     }
 
     @Override
-    public void replaceFragment(@NonNull Fragment fragment, boolean clearBackStack) {
+    public void replaceFragment(@NonNull Fragment fragment, boolean clearBackStack, boolean hideKeyboard) {
         FragmentTransaction transaction = fragmentManager.beginTransaction()
                 .replace(containerViewId, fragment);
 
@@ -67,14 +73,17 @@ public class FrameRoutingContext implements IFrameRoutingContext {
 
         if (addToBackStack) {
             transaction.addToBackStack(null);
-        }
-        else {
+        } else {
             currentFragmentChanged(fragment);
         }
 
         // TODO: 28.10.2017  clear back stack
 
         transaction.commit();
+
+        if (hideKeyboard) {
+            KeyboardUtils.hideKeyboard(getActivity());
+        }
     }
 
     @Override
@@ -101,9 +110,20 @@ public class FrameRoutingContext implements IFrameRoutingContext {
     }
 
     @NonNull
+    public Activity getActivity() {
+        if (activity != null) {
+            return activity;
+        } else if (fragment != null) {
+            return fragment.requireActivity();
+        } else {
+            throw new RuntimeException("activity and fragment cannot be null in same time");
+        }
+    }
+
+    @NonNull
     @Override
     public Context getContext() {
-        return context;
+        return getActivity();
     }
 
     @Override

@@ -37,6 +37,7 @@ class FragmentEndpointBase<TFragment extends Fragment> extends EndpointBase<IFra
                 return;
 
             clearBackStack = settings.clearBackStack;
+            hideKeyboard = settings.hideKeyboard;
         }
 
         @Override

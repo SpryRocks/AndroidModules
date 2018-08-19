@@ -8,7 +8,7 @@ import com.spryrocks.android.modules.utils.Actions;
 
 @SuppressWarnings("unused")
 public interface IFrameTarget extends ITarget {
-    void replaceFragment(@NonNull Fragment fragment, boolean clearBackStack);
+    void replaceFragment(@NonNull Fragment fragment, boolean clearBackStack, boolean hideKeyboard);
     void setOnCurrentFragmentChangedListener(@Nullable Actions.Action1<Fragment> onCurrentFragmentChangedListener);
     @Nullable Fragment getCurrentFragment();
 }

@@ -18,8 +18,9 @@ package com.spryrocks.android.modules.ui.lifecycle;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
+
+import androidx.annotation.Nullable;
 
 public class FragmentLifecycleListenersCollection extends LifecycleListenersCollection implements IFragmentLifecycleListener {
     @Override

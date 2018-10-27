@@ -19,16 +19,17 @@ package com.spryrocks.android.modules.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.spryrocks.android.modules.ui.lifecycle.FragmentLifecycleListenersCollection;
 import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListener;
 import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListenersCollection;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 @SuppressWarnings("unused")
-public class Fragment extends android.support.v4.app.Fragment implements ILifecycleListenersCollection {
+public class Fragment extends androidx.fragment.app.Fragment implements ILifecycleListenersCollection {
     private final FragmentLifecycleListenersCollection lifecycleListenersCollection;
 
     public Fragment() {

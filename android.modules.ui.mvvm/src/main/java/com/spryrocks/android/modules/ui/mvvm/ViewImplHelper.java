@@ -16,18 +16,19 @@
 
 package com.spryrocks.android.modules.ui.mvvm;
 
-import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.spryrocks.android.modules.ui.lifecycle.LifecycleListener;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewModel>
         extends LifecycleListener
@@ -125,7 +126,7 @@ class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewMo
             super(layoutId, tViewModelClass, modelBindingVariableId, ownerView);
         }
 
-        void onCreate(android.support.v4.app.FragmentActivity fragmentActivity, ConnectedServicesRegistration connectedServicesRegistration) {
+        void onCreate(androidx.fragment.app.FragmentActivity fragmentActivity, ConnectedServicesRegistration connectedServicesRegistration) {
             ViewModelProvider viewModelProvider = ViewModelProviders.of(fragmentActivity);
 
             super.onCreate(viewModelProvider, connectedServicesRegistration);
@@ -143,7 +144,7 @@ class ViewImplHelper<TBinding extends ViewDataBinding, TViewModel extends ViewMo
             super(layoutId, tViewModelClass, modelBindingVariableId, ownerView);
         }
 
-        void onCreate(android.support.v4.app.Fragment fragment, ConnectedServicesRegistration connectedServicesRegistration) {
+        void onCreate(androidx.fragment.app.Fragment fragment, ConnectedServicesRegistration connectedServicesRegistration) {
             ViewModelProvider viewModelProvider = ViewModelProviders.of(fragment);
 
             super.onCreate(viewModelProvider, connectedServicesRegistration);

@@ -16,11 +16,12 @@
 
 package com.spryrocks.android.modules.data.adapters.recyclerview;
 
-import android.support.annotation.LayoutRes;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.LayoutRes;
+import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class ViewHolderBase<TItem> extends RecyclerView.ViewHolder {
 

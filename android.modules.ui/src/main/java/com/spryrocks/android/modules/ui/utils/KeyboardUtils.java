@@ -2,9 +2,10 @@ package com.spryrocks.android.modules.ui.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
+import androidx.annotation.NonNull;
 
 public class KeyboardUtils {
     public static void hideKeyboard(@NonNull Activity activity) {

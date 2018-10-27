@@ -2,10 +2,11 @@ package com.spryrocks.android.modules.ui.routing.endpoints;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.Nullable;
 
 import com.spryrocks.android.modules.ui.routing.context.IScreenTarget;
 import com.spryrocks.android.modules.utils.Actions;
+
+import androidx.annotation.Nullable;
 
 @SuppressWarnings("unused")
 public class ActivityEndpoint<TActivity extends Activity>

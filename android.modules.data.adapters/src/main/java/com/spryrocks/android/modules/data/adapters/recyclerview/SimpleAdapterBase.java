@@ -17,10 +17,11 @@
 package com.spryrocks.android.modules.data.adapters.recyclerview;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class SimpleAdapterBase<VH extends ViewHolderBase<TItem>, TItem> extends RecyclerView.Adapter<VH> {
     private LayoutInflater layoutInflater;

@@ -16,9 +16,10 @@
 
 package com.spryrocks.android.modules.ui.mvvm.model;
 
-import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class CommandBase<TCallback> {

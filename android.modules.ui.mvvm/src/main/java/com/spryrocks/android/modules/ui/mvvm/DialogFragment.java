@@ -17,16 +17,17 @@
 package com.spryrocks.android.modules.ui.mvvm;
 
 import android.annotation.SuppressLint;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
+
+import androidx.annotation.CallSuper;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 
 @SuppressLint("ValidFragment")
 @SuppressWarnings("unused")

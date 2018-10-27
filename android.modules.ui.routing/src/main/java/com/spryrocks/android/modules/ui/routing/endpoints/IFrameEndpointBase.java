@@ -1,9 +1,10 @@
 package com.spryrocks.android.modules.ui.routing.endpoints;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 
 import java.io.Serializable;
+
+import androidx.fragment.app.Fragment;
 
 public interface IFrameEndpointBase {
     class Key<T extends Serializable> extends EndpointArgumentKey<T, Fragment> {

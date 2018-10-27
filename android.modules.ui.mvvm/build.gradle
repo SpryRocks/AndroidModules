@@ -49,6 +49,6 @@ android {
 dependencies {
     implementation project(":android.modules")
     implementation project(":android.modules.ui")
-    implementation "androidx.appcompat:appcompat:1.0.0"
-    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    implementation "androidx.appcompat:appcompat:$project.ANDROID_SUPPORT_VERSION"
+    implementation "androidx.lifecycle:lifecycle-extensions:$project.ANDROID_ARCH_VERSION"
 }

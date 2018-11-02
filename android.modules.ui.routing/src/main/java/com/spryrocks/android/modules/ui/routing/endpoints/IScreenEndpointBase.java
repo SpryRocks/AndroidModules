@@ -1,11 +1,12 @@
 package com.spryrocks.android.modules.ui.routing.endpoints;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 
 import java.io.Serializable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 
 interface IScreenEndpointBase {
     class Key<T extends Serializable> extends EndpointArgumentKey<T, FragmentActivity> {

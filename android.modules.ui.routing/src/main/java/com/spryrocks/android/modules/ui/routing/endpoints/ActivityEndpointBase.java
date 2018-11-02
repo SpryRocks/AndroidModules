@@ -2,10 +2,11 @@ package com.spryrocks.android.modules.ui.routing.endpoints;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.spryrocks.android.modules.ui.routing.context.IScreenTarget;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class ActivityEndpointBase<TActivity extends Activity>
         extends EndpointBase<IScreenTarget, TActivity, Intent, ActivityEndpointBase.Wrapper, ScreenEndpointSettings> {

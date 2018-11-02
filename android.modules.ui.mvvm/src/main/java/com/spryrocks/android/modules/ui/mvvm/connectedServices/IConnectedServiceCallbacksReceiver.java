@@ -16,11 +16,11 @@
 
 package com.spryrocks.android.modules.ui.mvvm.connectedServices;
 
-import android.support.annotation.NonNull;
-
 import com.spryrocks.android.modules.utils.Actions;
 
 import java.util.Set;
+
+import androidx.annotation.NonNull;
 
 public interface IConnectedServiceCallbacksReceiver {
     @NonNull <TCallbacks extends IConnectedServiceCallbacks>

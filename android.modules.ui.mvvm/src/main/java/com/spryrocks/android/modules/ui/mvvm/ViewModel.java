@@ -17,8 +17,6 @@
 package com.spryrocks.android.modules.ui.mvvm;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.support.annotation.CallSuper;
 
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServices;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServiceCallbacksManager;
@@ -27,6 +25,9 @@ import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedService
 import com.spryrocks.android.modules.ui.mvvm.lifecycle.ILifecycleListener;
 import com.spryrocks.android.modules.ui.mvvm.lifecycle.ILifecycleListenersCollection;
 import com.spryrocks.android.modules.ui.mvvm.lifecycle.LifecycleListenersCollection;
+
+import androidx.annotation.CallSuper;
+import androidx.lifecycle.AndroidViewModel;
 
 public class ViewModel<TModel> extends AndroidViewModel implements IConnectedServicesOwner, ILifecycleListenersCollection {
     @SuppressWarnings("WeakerAccess")

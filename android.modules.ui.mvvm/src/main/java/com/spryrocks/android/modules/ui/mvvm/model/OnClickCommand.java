@@ -16,8 +16,9 @@
 
 package com.spryrocks.android.modules.ui.mvvm.model;
 
-import android.support.annotation.Nullable;
 import android.view.View;
+
+import androidx.annotation.Nullable;
 
 @SuppressWarnings("unused")
 public class OnClickCommand extends Command implements View.OnClickListener {

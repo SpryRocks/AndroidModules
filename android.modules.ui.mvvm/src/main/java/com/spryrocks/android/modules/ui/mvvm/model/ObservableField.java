@@ -16,16 +16,16 @@
 
 package com.spryrocks.android.modules.ui.mvvm.model;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import com.spryrocks.android.modules.utils.Actions;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 @SuppressWarnings("unused")
-public class ObservableField<T> extends android.databinding.ObservableField<T> {
+public class ObservableField<T> extends androidx.databinding.ObservableField<T> {
     private final List<Actions.Action1<T>> callbacks;
 
     @SuppressWarnings("WeakerAccess")

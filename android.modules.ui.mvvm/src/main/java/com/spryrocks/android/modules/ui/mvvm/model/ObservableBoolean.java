@@ -16,14 +16,14 @@
 
 package com.spryrocks.android.modules.ui.mvvm.model;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 @SuppressWarnings("unused")
-public class ObservableBoolean extends android.databinding.ObservableBoolean {
+public class ObservableBoolean extends androidx.databinding.ObservableBoolean {
     private final List<Callback> callbacks;
 
     @SuppressWarnings("WeakerAccess")

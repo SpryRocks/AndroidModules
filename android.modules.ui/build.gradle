@@ -24,7 +24,7 @@ android {
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode project.versionCode
         versionName project.versionName
 
@@ -44,6 +44,6 @@ android {
 
 dependencies {
     implementation project(':android.modules')
-    compileOnly "com.android.support:support-fragment:$project.ANDROID_SUPPORT_VERSION"
-    compileOnly "com.android.support:appcompat-v7:$project.ANDROID_SUPPORT_VERSION"
+    implementation "androidx.fragment:fragment:$project.ANDROID_SUPPORT_VERSION"
+    implementation "androidx.appcompat:appcompat:$project.ANDROID_SUPPORT_VERSION"
 }

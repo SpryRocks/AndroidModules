@@ -1,8 +1,8 @@
 package com.spryrocks.android.modules.ui.routing.endpoints;
 
-import android.support.annotation.Nullable;
-
 import com.spryrocks.android.modules.utils.Actions;
+
+import androidx.annotation.Nullable;
 
 @SuppressWarnings("WeakerAccess")
 public interface IEndpoint<TSettings> {

@@ -16,9 +16,9 @@
 
 package com.spryrocks.android.modules.ui.mvvm.connectedServices;
 
-import android.support.annotation.NonNull;
-
 import java.util.Set;
+
+import androidx.annotation.NonNull;
 
 public interface IConnectedServiceCallbacksOwner extends IConnectedServiceCallbacksReceiver {
     IConnectedServices getConnectedServices();

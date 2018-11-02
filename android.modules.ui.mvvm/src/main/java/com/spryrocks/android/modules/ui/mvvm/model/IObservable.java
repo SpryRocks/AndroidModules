@@ -16,9 +16,9 @@
 
 package com.spryrocks.android.modules.ui.mvvm.model;
 
-import android.support.annotation.NonNull;
-
 import com.spryrocks.android.modules.utils.Actions;
+
+import androidx.annotation.NonNull;
 
 public interface IObservable {
     void addCallback(@NonNull Actions.Action callback);

@@ -16,13 +16,13 @@
 
 package com.spryrocks.android.modules.ui.mvvm.connectedServices;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class ConnectedServices implements IConnectedServices, IConnectedServicesManager,
         IConnectedServiceCallbacksReceiver, IConnectedServiceCallbacksManager {

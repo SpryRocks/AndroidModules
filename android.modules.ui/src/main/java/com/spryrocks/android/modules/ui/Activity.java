@@ -18,11 +18,12 @@ package com.spryrocks.android.modules.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.spryrocks.android.modules.ui.lifecycle.ActivityLifecycleListenersCollection;
 import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListener;
 import com.spryrocks.android.modules.ui.lifecycle.ILifecycleListenersCollection;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Activity extends AppCompatActivity implements ILifecycleListenersCollection {
     private final ActivityLifecycleListenersCollection lifecycleListenersCollection;

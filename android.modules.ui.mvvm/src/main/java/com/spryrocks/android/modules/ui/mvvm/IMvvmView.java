@@ -16,11 +16,11 @@
 
 package com.spryrocks.android.modules.ui.mvvm;
 
-import android.databinding.ViewDataBinding;
-
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.ConnectedServicesRegistration;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServiceCallbacksOwner;
 import com.spryrocks.android.modules.ui.mvvm.connectedServices.IConnectedServices;
+
+import androidx.databinding.ViewDataBinding;
 
 public interface IMvvmView<TBinding extends ViewDataBinding, TViewModel extends ViewModel> extends IConnectedServiceCallbacksOwner {
     void initViewModel(TViewModel viewModel);

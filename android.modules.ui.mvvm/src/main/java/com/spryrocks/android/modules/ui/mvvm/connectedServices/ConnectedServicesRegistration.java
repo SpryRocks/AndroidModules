@@ -16,12 +16,12 @@
 
 package com.spryrocks.android.modules.ui.mvvm.connectedServices;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import com.spryrocks.android.modules.ui.lifecycle.LifecycleListener;
 
 import java.util.Set;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class ConnectedServicesRegistration extends LifecycleListener implements IConnectedServices, IConnectedServicesManager {
     private IConnectedServicesManager connectedServicesManager;

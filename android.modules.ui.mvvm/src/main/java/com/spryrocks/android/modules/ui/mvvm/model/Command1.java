@@ -16,9 +16,9 @@
 
 package com.spryrocks.android.modules.ui.mvvm.model;
 
-import android.support.annotation.Nullable;
-
 import com.spryrocks.android.modules.utils.Actions;
+
+import androidx.annotation.Nullable;
 
 public class Command1<T> extends CommandBase<Actions.Action1<T>> implements ICommand1<T>, IObservable1<T> {
     @Override

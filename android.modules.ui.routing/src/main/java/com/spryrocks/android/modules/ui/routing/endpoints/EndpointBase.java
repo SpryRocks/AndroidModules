@@ -1,10 +1,10 @@
 package com.spryrocks.android.modules.ui.routing.endpoints;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import com.spryrocks.android.modules.ui.routing.context.ITarget;
 import com.spryrocks.android.modules.utils.Actions;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 @SuppressWarnings("WeakerAccess")
 abstract class EndpointBase<TTarget extends ITarget, T, TWrapped, TWrapper extends EndpointBase.Wrapper<TTarget, TWrapped, TSettings>, TSettings> {

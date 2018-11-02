@@ -1,14 +1,15 @@
 package com.spryrocks.android.modules.ui.routing.endpoints;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 
 import com.spryrocks.android.modules.ui.routing.context.IFrameTarget;
 import com.spryrocks.android.modules.utils.Actions;
 
 import java.io.Serializable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 @SuppressWarnings("unused")
 public class FragmentEndpoint1<TFragment extends Fragment, Arg extends Serializable>

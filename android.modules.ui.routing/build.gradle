@@ -30,6 +30,6 @@ android {
 dependencies {
     implementation project(":android.modules")
     implementation project(":android.modules.ui")
-    implementation "androidx.annotation:annotation:$project.ANDROID_SUPPORT_VERSION"
-    implementation "androidx.fragment:fragment:$project.ANDROID_SUPPORT_VERSION"
+    implementation "androidx.annotation:annotation:$project.ANDROIDX_SUPPORT_VERSION"
+    implementation "androidx.fragment:fragment:$project.ANDROIDX_SUPPORT_VERSION"
 }

@@ -44,6 +44,6 @@ android {
 
 dependencies {
     implementation project(':android.modules')
-    implementation "androidx.fragment:fragment:$project.ANDROID_SUPPORT_VERSION"
-    implementation "androidx.appcompat:appcompat:$project.ANDROID_SUPPORT_VERSION"
+    implementation "androidx.fragment:fragment:$project.ANDROIDX_SUPPORT_VERSION"
+    implementation "androidx.appcompat:appcompat:$project.ANDROIDX_APPCOMPAT_SUPPORT_VERSION"
 }

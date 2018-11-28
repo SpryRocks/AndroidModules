@@ -38,5 +38,5 @@ android {
 
 dependencies {
     implementation project(':android.modules.data')
-    implementation "androidx.legacy:legacy-support-core-utils:$project.ANDROID_SUPPORT_VERSION"
+    implementation "androidx.legacy:legacy-support-core-utils:$project.ANDROIDX_SUPPORT_VERSION"
 }

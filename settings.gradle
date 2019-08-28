@@ -1,7 +1,6 @@
 include ':android.modules',
         ':android.modules.threading',
         ':android.modules.data',
-        ':android.modules.data.loaders',
         ':android.modules.data.adapters',
         ':android.modules.ui',
         ':android.modules.ui.mvp',
